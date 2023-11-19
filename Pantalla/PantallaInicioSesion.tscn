@@ -1,0 +1,113 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Recursos/Fuentes/Montserrat-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Contenedores/IngresoDatos.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Recursos/Fuentes/Montserrat-Bold.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Recursos/Imagenes/Logo esquina EPT.png" type="Texture" id=4]
+[ext_resource path="res://Pantalla/PantallaInicioSesion.gd" type="Script" id=5]
+
+[sub_resource type="StyleBoxLine" id=1]
+thickness = 4
+
+[sub_resource type="DynamicFont" id=4]
+size = 60
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 20
+font_data = ExtResource( 1 )
+
+[node name="PantallaInicioSesion" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+
+[node name="Fondo" type="Node" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Fondo"]
+margin_right = 1080.0
+margin_bottom = 1920.0
+color = Color( 0.184314, 0.823529, 1, 1 )
+
+[node name="BarraSuperior" type="Node" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="BarraSuperior"]
+margin_right = 1080.0
+margin_bottom = 150.0
+color = Color( 0.980392, 0.984314, 0.984314, 1 )
+
+[node name="HSeparator" type="HSeparator" parent="BarraSuperior"]
+margin_left = -1.0
+margin_top = 146.0
+margin_right = 1079.0
+margin_bottom = 150.0
+custom_styles/separator = SubResource( 1 )
+
+[node name="Label" type="Label" parent="BarraSuperior"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -925.0
+margin_right = 540.0
+margin_bottom = -850.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "Educar para transformar"
+align = 1
+valign = 1
+
+[node name="TextureRect" type="TextureRect" parent="BarraSuperior"]
+margin_left = 25.0
+margin_top = 16.0
+margin_right = 137.0
+margin_bottom = 133.0
+texture = ExtResource( 4 )
+
+[node name="BarraInferior" type="Node" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="BarraInferior"]
+margin_top = 1850.0
+margin_right = 1080.0
+margin_bottom = 1920.0
+color = Color( 0.14902, 0.152941, 0.180392, 1 )
+
+[node name="Label" type="Label" parent="BarraInferior"]
+margin_top = 1858.0
+margin_right = 1080.0
+margin_bottom = 1884.0
+custom_fonts/font = SubResource( 2 )
+text = " Educar para Transformar 2001-2023 | Todos los derechos Reservados."
+align = 1
+valign = 1
+
+[node name="Label2" type="Label" parent="BarraInferior"]
+margin_top = 1888.0
+margin_right = 1080.0
+margin_bottom = 1914.0
+custom_fonts/font = SubResource( 3 )
+text = "Team Ozono"
+align = 1
+valign = 1
+
+[node name="BoxInicioSesion" type="Node" parent="."]
+
+[node name="IngresoDatos" parent="BoxInicioSesion" instance=ExtResource( 2 )]
+
+[node name="LoginRequest" type="HTTPRequest" parent="."]
+
+[node name="GetRoleRequest" type="HTTPRequest" parent="."]
+
+[node name="GetFullNameRequest" type="HTTPRequest" parent="."]
+
+[connection signal="pressed" from="BoxInicioSesion/IngresoDatos/ParteCentral/Datos/ButtonIS" to="." method="_on_ButtonIS_pressed"]
+[connection signal="request_completed" from="LoginRequest" to="." method="_on_LoginRequest_request_completed"]
+[connection signal="request_completed" from="GetRoleRequest" to="." method="_on_GetRoleRequest_request_completed"]
+[connection signal="request_completed" from="GetFullNameRequest" to="." method="_on_GetFullNameRequest_request_completed"]
+
+[editable path="BoxInicioSesion/IngresoDatos"]

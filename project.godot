@@ -8,14 +8,96 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "JWT",
+"language": "GDScript",
+"path": "res://addons/jwt/src/JWT.gd"
+}, {
+"base": "Reference",
+"class": "JWTAlgorithm",
+"language": "GDScript",
+"path": "res://addons/jwt/src/JWTAlgorithm.gd"
+}, {
+"base": "Reference",
+"class": "JWTAlgorithmBuilder",
+"language": "GDScript",
+"path": "res://addons/jwt/src/JWTAlgorithmBuilder.gd"
+}, {
+"base": "Reference",
+"class": "JWTBaseBuilder",
+"language": "GDScript",
+"path": "res://addons/jwt/src/JWTBaseBuilder.gd"
+}, {
+"base": "JWTBaseBuilder",
+"class": "JWTBuilder",
+"language": "GDScript",
+"path": "res://addons/jwt/src/JWTBuilder.gd"
+}, {
+"base": "Reference",
+"class": "JWTClaims",
+"language": "GDScript",
+"path": "res://addons/jwt/src/JWTClaims.gd"
+}, {
+"base": "Reference",
+"class": "JWTDecoder",
+"language": "GDScript",
+"path": "res://addons/jwt/src/JWTDecoder.gd"
+}, {
+"base": "Reference",
+"class": "JWTUtils",
+"language": "GDScript",
+"path": "res://addons/jwt/src/JWTUtils.gd"
+}, {
+"base": "Reference",
+"class": "JWTVerifier",
+"language": "GDScript",
+"path": "res://addons/jwt/src/JWTVerifier.gd"
+}, {
+"base": "JWTBaseBuilder",
+"class": "JWTVerifierBuilder",
+"language": "GDScript",
+"path": "res://addons/jwt/src/JWTVerifierBuilder.gd"
+} ]
+_global_script_class_icons={
+"JWT": "",
+"JWTAlgorithm": "",
+"JWTAlgorithmBuilder": "",
+"JWTBaseBuilder": "",
+"JWTBuilder": "",
+"JWTClaims": "",
+"JWTDecoder": "",
+"JWTUtils": "",
+"JWTVerifier": "",
+"JWTVerifierBuilder": ""
+}
+
 [application]
 
 config/name="MobileAppEducarParaTransformar"
 config/icon="res://icon.png"
 
+[autoload]
+
+Globals="*res://Autoload/Globals.gd"
+
+[display]
+
+window/size/width=1080
+window/size/height=1920
+window/size/test_width=540
+window/size/test_height=960
+window/handheld/orientation="portrait"
+window/stretch/mode="2d"
+window/stretch/aspect="keep_width"
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
 
 [physics]
 
