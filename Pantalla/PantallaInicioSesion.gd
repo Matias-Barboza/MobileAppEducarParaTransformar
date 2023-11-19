@@ -17,6 +17,8 @@ var mensaje : Array = ["Correo electrónico o contraseña inválido",
 						"Rol inválido"]
 var posicion_inicial_datos : int = 841
 var posicion_error : int = 885
+var estado_traducir : bool
+var rutas_sprites : Array = ["res://Recursos/Iconos/ToggleOn.png", "res://Recursos/Iconos/ToggleOff.png"]
 
 
 # Variables onready
@@ -26,6 +28,7 @@ onready var correo : LineEdit = $BoxInicioSesion/IngresoDatos/ParteCentral/Datos
 onready var line_contrasenha : LineEdit = $BoxInicioSesion/IngresoDatos/ParteCentral/Datos/LineEditContrasenha
 onready var label_mensaje : Label = $BoxInicioSesion/IngresoDatos/ParteCentral/LabelMensaje
 onready var animation_player : AnimationPlayer = $BoxInicioSesion/IngresoDatos/Animacion/AnimationPlayer
+onready var animation_player_toggle : AnimationPlayer = $Traduccion/AnimationPlayer
 
 
 
@@ -33,6 +36,7 @@ onready var animation_player : AnimationPlayer = $BoxInicioSesion/IngresoDatos/A
 func _ready() -> void:
 	correo.grab_focus()
 	viene_de_error = false
+	estado_traducir = false
 
 
 func loginRequest() -> void:
@@ -146,3 +150,15 @@ func _on_ButtonIS_pressed() -> void:
 			animation_player.play("desplazamiento_error")
 		elif box_datos.rect_position.y == posicion_error:
 			animation_player.play("parpadeo_invalido")
+
+
+func _on_ButtonTraduccion_pressed() -> void:
+	
+	estado_traducir = !estado_traducir
+	
+	if estado_traducir:
+		animation_player_toggle.play("on")
+	else:
+		animation_player_toggle.play("off")
+	
+	print(estado_traducir)

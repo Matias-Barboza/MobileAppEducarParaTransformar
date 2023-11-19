@@ -1,10 +1,14 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Recursos/Fuentes/Montserrat-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Contenedores/IngresoDatos.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Recursos/Fuentes/Montserrat-Bold.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Recursos/Imagenes/Logo esquina EPT.png" type="Texture" id=4]
 [ext_resource path="res://Pantalla/PantallaInicioSesion.gd" type="Script" id=5]
+[ext_resource path="res://Recursos/Iconos/circle.png" type="Texture" id=6]
+[ext_resource path="res://Recursos/Fuentes/Montserrat-SemiBold.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Recursos/Iconos/crop.png" type="Texture" id=8]
+[ext_resource path="res://Pantalla/PantallaDocente.tscn" type="PackedScene" id=9]
 
 [sub_resource type="StyleBoxLine" id=1]
 thickness = 4
@@ -12,6 +16,52 @@ thickness = 4
 [sub_resource type="DynamicFont" id=4]
 size = 60
 font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="DynamicFont" id=10]
+size = 40
+font_data = ExtResource( 7 )
+
+[sub_resource type="Animation" id=11]
+resource_name = "off"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("CircleSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ Vector2( 497, 1550 ), Vector2( 582, 1550 ) ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "on"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("CircleSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ Vector2( 582, 1550 ), Vector2( 497, 1550 ) ]
+}
 
 [sub_resource type="DynamicFont" id=2]
 size = 20
@@ -25,6 +75,7 @@ font_data = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 5 )
+escenaDocente = ExtResource( 9 )
 
 [node name="Fondo" type="Node" parent="."]
 
@@ -69,6 +120,44 @@ margin_right = 137.0
 margin_bottom = 133.0
 texture = ExtResource( 4 )
 
+[node name="Traduccion" type="Node" parent="."]
+
+[node name="ButtonTraduccion" type="Button" parent="Traduccion"]
+margin_left = 447.0
+margin_top = 1503.0
+margin_right = 633.0
+margin_bottom = 1595.0
+mouse_filter = 1
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/disabled = SubResource( 8 )
+custom_styles/normal = SubResource( 9 )
+
+[node name="Label" type="Label" parent="Traduccion"]
+margin_left = 378.5
+margin_top = 1434.0
+margin_right = 701.5
+margin_bottom = 1484.0
+custom_fonts/font = SubResource( 10 )
+text = "Cambiar idioma"
+align = 1
+valign = 1
+
+[node name="CropSprite" type="Sprite" parent="Traduccion"]
+position = Vector2( 540, 1550 )
+scale = Vector2( 5, 4.5 )
+texture = ExtResource( 8 )
+
+[node name="CircleSprite" type="Sprite" parent="Traduccion"]
+position = Vector2( 582, 1550 )
+scale = Vector2( 1.33333, 1.29167 )
+texture = ExtResource( 6 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Traduccion"]
+anims/off = SubResource( 11 )
+anims/on = SubResource( 12 )
+
 [node name="BarraInferior" type="Node" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="BarraInferior"]
@@ -105,6 +194,7 @@ valign = 1
 
 [node name="GetFullNameRequest" type="HTTPRequest" parent="."]
 
+[connection signal="pressed" from="Traduccion/ButtonTraduccion" to="." method="_on_ButtonTraduccion_pressed"]
 [connection signal="pressed" from="BoxInicioSesion/IngresoDatos/ParteCentral/Datos/ButtonIS" to="." method="_on_ButtonIS_pressed"]
 [connection signal="request_completed" from="LoginRequest" to="." method="_on_LoginRequest_request_completed"]
 [connection signal="request_completed" from="GetRoleRequest" to="." method="_on_GetRoleRequest_request_completed"]
