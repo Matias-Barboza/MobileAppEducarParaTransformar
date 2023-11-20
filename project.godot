@@ -75,6 +75,7 @@ _global_script_class_icons={
 [application]
 
 config/name="MobileAppEducarParaTransformar"
+run/main_scene="res://Pantalla/PantallaInicioSesion.tscn"
 config/icon="res://icon.png"
 
 [autoload]

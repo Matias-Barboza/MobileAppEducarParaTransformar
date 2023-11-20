@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://Recursos/Fuentes/Montserrat-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Recursos/Imagenes/Logo esquina EPT.png" type="Texture" id=2]
@@ -13,6 +13,10 @@
 [ext_resource path="res://Recursos/Fuentes/Montserrat-SemiBold.ttf" type="DynamicFontData" id=11]
 [ext_resource path="res://Contenedores/Tablas/TablaHorariosDocente.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Contenedores/Tablas/TablaAlumnos.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Recursos/Iconos/crop.png" type="Texture" id=14]
+[ext_resource path="res://Recursos/Iconos/argentina.png" type="Texture" id=15]
+[ext_resource path="res://Recursos/Iconos/circle.png" type="Texture" id=16]
+[ext_resource path="res://Recursos/Iconos/united-states.png" type="Texture" id=17]
 
 [sub_resource type="StyleBoxLine" id=1]
 thickness = 4
@@ -70,11 +74,14 @@ corner_radius_bottom_left = 8
 content_margin_left = 10.0
 bg_color = Color( 0, 0, 0, 0.192157 )
 
-[sub_resource type="StyleBoxFlat" id=15]
+[sub_resource type="StyleBoxFlat" id=35]
 content_margin_left = 5.0
+content_margin_right = 100.0
 bg_color = Color( 1, 0.027451, 0, 0.392157 )
 
 [sub_resource type="StyleBoxFlat" id=14]
+content_margin_left = 10.0
+content_margin_right = 100.0
 bg_color = Color( 0, 0, 0, 0.192157 )
 border_width_right = 2
 border_width_bottom = 8
@@ -82,6 +89,57 @@ border_color = Color( 0.709804, 0.101961, 0.101961, 1 )
 corner_radius_top_right = 4
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id=34]
+content_margin_left = 10.0
+content_margin_right = 100.0
+bg_color = Color( 0, 0, 0, 0.192157 )
+
+[sub_resource type="StyleBoxEmpty" id=23]
+
+[sub_resource type="StyleBoxEmpty" id=24]
+
+[sub_resource type="StyleBoxEmpty" id=25]
+
+[sub_resource type="StyleBoxEmpty" id=26]
+
+[sub_resource type="StyleBoxEmpty" id=27]
+
+[sub_resource type="DynamicFont" id=28]
+size = 40
+font_data = ExtResource( 11 )
+
+[sub_resource type="Animation" id=31]
+resource_name = "off"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("CircleSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 332.2, 1128 ), Vector2( 418, 1128 ) ]
+}
+
+[sub_resource type="Animation" id=32]
+resource_name = "on"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("CircleSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 418, 1128 ), Vector2( 332.2, 1128 ) ]
+}
 
 [sub_resource type="Animation" id=21]
 resource_name = "default"
@@ -96,7 +154,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -540, 150 ) ]
+"values": [ Vector2( -713, 150 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Bienvenida/PanelBienvenida:visible")
@@ -159,8 +217,7 @@ tracks/5/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=12]
-resource_name = "desplegar"
+[sub_resource type="Animation" id=30]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("MenuLateral/PanelLateral:rect_position")
@@ -172,7 +229,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 0.5, 0.5 ),
 "update": 0,
-"values": [ Vector2( -540, 150 ), Vector2( 0, 150 ) ]
+"values": [ Vector2( -713, 150 ), Vector2( 0, 150 ) ]
 }
 
 [sub_resource type="Animation" id=13]
@@ -188,7 +245,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 0.5, 0.5 ),
 "update": 0,
-"values": [ Vector2( 0, 150 ), Vector2( -540, 150 ) ]
+"values": [ Vector2( 0, 150 ), Vector2( -713, 150 ) ]
 }
 
 [node name="PantallaDocente" type="Control"]
@@ -313,13 +370,13 @@ custom_styles/panel = SubResource( 22 )
 [node name="MenuLateral" type="Node" parent="."]
 
 [node name="PanelLateral" type="Panel" parent="MenuLateral"]
-margin_left = -540.0
+margin_left = -713.0
 margin_top = 150.0
 margin_bottom = 1920.0
 custom_styles/panel = SubResource( 7 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuLateral/PanelLateral"]
-margin_right = 540.0
+margin_right = 713.0
 margin_bottom = 1770.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -396,16 +453,68 @@ rect_min_size = Vector2( 0, 90 )
 mouse_filter = 1
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 8 )
-custom_styles/hover = SubResource( 15 )
+custom_styles/hover = SubResource( 35 )
 custom_styles/pressed = SubResource( 14 )
-custom_styles/normal = SubResource( 11 )
+custom_styles/normal = SubResource( 34 )
 text = "KEY_SALIR"
 icon = ExtResource( 8 )
+
+[node name="Control" type="Control" parent="MenuLateral/PanelLateral/VBoxContainer"]
+margin_top = 510.0
+margin_right = 713.0
+margin_bottom = 510.0
+
+[node name="ButtonTraduccion" type="Button" parent="MenuLateral/PanelLateral/VBoxContainer/Control"]
+margin_left = 282.2
+margin_top = 1081.0
+margin_right = 468.2
+margin_bottom = 1173.0
+mouse_filter = 1
+custom_styles/hover = SubResource( 23 )
+custom_styles/pressed = SubResource( 24 )
+custom_styles/focus = SubResource( 25 )
+custom_styles/disabled = SubResource( 26 )
+custom_styles/normal = SubResource( 27 )
+
+[node name="Label" type="Label" parent="MenuLateral/PanelLateral/VBoxContainer/Control"]
+margin_left = 169.2
+margin_top = 1018.0
+margin_right = 581.2
+margin_bottom = 1068.0
+custom_fonts/font = SubResource( 28 )
+text = "KEY_IDIOMA"
+align = 1
+valign = 1
+
+[node name="CropSprite" type="Sprite" parent="MenuLateral/PanelLateral/VBoxContainer/Control"]
+position = Vector2( 375.2, 1128 )
+scale = Vector2( 5, 4.5 )
+texture = ExtResource( 14 )
+
+[node name="CircleSprite" type="Sprite" parent="MenuLateral/PanelLateral/VBoxContainer/Control"]
+position = Vector2( 332.2, 1128 )
+scale = Vector2( 1.33333, 1.29167 )
+texture = ExtResource( 16 )
+
+[node name="SpriteARG" type="Sprite" parent="MenuLateral/PanelLateral/VBoxContainer/Control"]
+position = Vector2( 218.2, 1128 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 15 )
+
+[node name="SpriteUSA" type="Sprite" parent="MenuLateral/PanelLateral/VBoxContainer/Control"]
+visible = false
+position = Vector2( 530.2, 1128 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 17 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MenuLateral/PanelLateral/VBoxContainer/Control"]
+anims/off = SubResource( 31 )
+anims/on = SubResource( 32 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "default"
 anims/default = SubResource( 21 )
-anims/desplegar = SubResource( 12 )
+anims/desplegar = SubResource( 30 )
 anims/replegar = SubResource( 13 )
 
 [connection signal="pressed" from="BarraSuperior/ButtonMenuLateral" to="." method="_on_ButtonMenuLateral_pressed"]
@@ -414,5 +523,7 @@ anims/replegar = SubResource( 13 )
 [connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonCargarNotas" to="." method="_on_ButtonCargarNotas_pressed"]
 [connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonCursos" to="." method="_on_ButtonCursos_pressed"]
 [connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonCombinado" to="." method="_on_ButtonCombinado_pressed"]
+[connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonSalir" to="." method="_on_ButtonSalir_pressed"]
+[connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/Control/ButtonTraduccion" to="." method="_on_ButtonTraduccion_pressed"]
 
 [editable path="CargarNotas/PanelCargaNotas/CargaNotas"]

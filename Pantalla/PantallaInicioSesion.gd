@@ -29,6 +29,8 @@ onready var line_contrasenha : LineEdit = $BoxInicioSesion/IngresoDatos/ParteCen
 onready var label_mensaje : Label = $BoxInicioSesion/IngresoDatos/ParteCentral/LabelMensaje
 onready var animation_player : AnimationPlayer = $BoxInicioSesion/IngresoDatos/Animacion/AnimationPlayer
 onready var animation_player_toggle : AnimationPlayer = $Traduccion/AnimationPlayer
+onready var sprite_arg : Sprite = $Traduccion/SpriteARG
+onready var sprite_usa : Sprite = $Traduccion/SpriteUSA
 
 
 
@@ -38,6 +40,16 @@ func _ready() -> void:
 	viene_de_error = false
 	estado_traducir = false
 
+	if TranslationServer.get_locale() == "es":
+		animation_player_toggle.play("on")
+		estado_traducir = false
+		sprite_arg.visible = true
+		sprite_usa.visible = false
+	else: 
+		animation_player_toggle.play("off")
+		estado_traducir = true
+		sprite_arg.visible = false
+		sprite_usa.visible = true
 
 func loginRequest() -> void:
 	
@@ -75,21 +87,21 @@ func mail_valido(correo) -> bool:
 func getRole() -> void:
 	
 	endpointrole += "%s" % Globals.userId
-	$GetRole.request(endpointrole)
+	$GetRoleRequest.request(endpointrole)
 	endpointFullname += str(Globals.userId)
-	$GetFullName.request(endpointFullname)
+	$GetFullNameRequest.request(endpointFullname)
 
 
 func cambiarEscena() -> void:
 	
 	if rol == "Docente":
 		# Agregar animacion de sesion iniciada
-		label_mensaje = mensaje[2]
+		label_mensaje.text = mensaje[2]
 		animation_player.play("sesion_iniciada")
 		yield(get_tree().create_timer(0.5), "timeout")
 		get_tree().change_scene_to(escenaDocente)
 	else:
-		label_mensaje = mensaje[3]
+		label_mensaje.text = mensaje[3]
 		animation_player.play("error_rol")
 		print("Error en la obtencion del rol")
 
@@ -135,7 +147,6 @@ func _on_GetFullNameRequest_request_completed(result: int, response_code: int, h
 
 
 func _on_ButtonIS_pressed() -> void:
-	print("Presionaste el boton")
 	
 	if(mail_valido(correo.text)):
 		animation_player.play("girar")
