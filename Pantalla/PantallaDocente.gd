@@ -10,13 +10,14 @@ onready var panel_bienvenida : Panel = $Bienvenida/PanelBienvenida
 onready var panel_horarios : Panel = $TablaHorarios/PanelHorarios
 onready var panel_cursos : Panel = $TablaCursos/PanelCursos
 onready var panel_carga_notas : Panel = $CargarNotas/PanelCargaNotas
+onready var panel_cursos_horarios : Panel = $TablaCursosHorarios/PanelCursosHorarios
 
 
 func _ready() -> void:
 	
 	desplegado = false
 	
-	paneles = [panel_bienvenida, panel_horarios, panel_carga_notas, panel_cursos]
+	paneles = [panel_bienvenida, panel_horarios, panel_carga_notas, panel_cursos, panel_cursos_horarios]
 
 
 func activar_panel(panel_a_visibilizar : Panel):
@@ -40,7 +41,7 @@ func _on_ButtonMenuLateral_pressed() -> void:
 
 
 func _on_ButtonHorarios_pressed() -> void:
-	
+	print("ButtonHP")
 	activar_panel(panel_horarios)
 
 

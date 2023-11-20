@@ -93,7 +93,7 @@ margin_right = 218.0
 margin_bottom = -274.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 55 )
-text = "Carga de Notas"
+text = "KEY_CARGA_DE_NOTAS"
 align = 1
 valign = 1
 
@@ -134,7 +134,7 @@ margin_right = 780.0
 margin_bottom = 43.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 48 )
-text = "Nota primer trimestre (1er)"
+text = "KEY_PRIMER_TRIMESTRE"
 valign = 1
 
 [node name="LineEditNota1" type="LineEdit" parent="ParteCentral/Notas"]
@@ -154,7 +154,7 @@ margin_right = 780.0
 margin_bottom = 181.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 49 )
-text = "Nota segundo trimestre (2do)"
+text = "KEY_SEGUNDO_TRIMESTRE"
 valign = 1
 
 [node name="LineEditNota2" type="LineEdit" parent="ParteCentral/Notas"]
@@ -175,7 +175,7 @@ margin_right = 780.0
 margin_bottom = 319.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 48 )
-text = "Nota tercer trimestre (3er)"
+text = "KEY_TERCER_TRIMESTRE"
 valign = 1
 
 [node name="LineEditNota3" type="LineEdit" parent="ParteCentral/Notas"]
@@ -205,4 +205,4 @@ custom_fonts/font = SubResource( 50 )
 custom_styles/hover = SubResource( 8 )
 custom_styles/pressed = SubResource( 10 )
 custom_styles/normal = SubResource( 45 )
-text = "Cargar notas"
+text = "KEY_CARGAR_NOTAS"

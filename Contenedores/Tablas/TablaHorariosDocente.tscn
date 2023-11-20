@@ -50,7 +50,7 @@ margin_bottom = 50.0
 size_flags_horizontal = 3
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 4 )
-text = "Materia"
+text = "KEY_MATERIA"
 valign = 1
 
 [node name="2" type="Label" parent="TablaHorariosDocente/VBoxContainer/PanelContainer/HBoxContainer"]
@@ -60,7 +60,7 @@ margin_bottom = 50.0
 size_flags_horizontal = 3
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 4 )
-text = "Comisión"
+text = "KEY_COMISION"
 valign = 1
 
 [node name="3" type="Label" parent="TablaHorariosDocente/VBoxContainer/PanelContainer/HBoxContainer"]
@@ -70,7 +70,7 @@ margin_bottom = 50.0
 size_flags_horizontal = 3
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 4 )
-text = "Aula"
+text = "KEY_AULA"
 valign = 1
 
 [node name="4" type="Label" parent="TablaHorariosDocente/VBoxContainer/PanelContainer/HBoxContainer"]
@@ -80,7 +80,7 @@ margin_bottom = 50.0
 size_flags_horizontal = 3
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 4 )
-text = "Día"
+text = "KEY_DIA"
 valign = 1
 
 [node name="5" type="Label" parent="TablaHorariosDocente/VBoxContainer/PanelContainer/HBoxContainer"]
@@ -90,7 +90,7 @@ margin_bottom = 50.0
 size_flags_horizontal = 3
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 4 )
-text = "Horario"
+text = "KEY_HORARIO"
 valign = 1
 
 [node name="PanelContainer2" type="PanelContainer" parent="TablaHorariosDocente/VBoxContainer"]
