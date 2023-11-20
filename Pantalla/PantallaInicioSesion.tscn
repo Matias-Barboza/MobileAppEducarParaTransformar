@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Recursos/Fuentes/Montserrat-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Contenedores/IngresoDatos.tscn" type="PackedScene" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Recursos/Fuentes/Montserrat-SemiBold.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://Recursos/Iconos/crop.png" type="Texture" id=8]
 [ext_resource path="res://Pantalla/PantallaDocente.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Recursos/Iconos/united-states.png" type="Texture" id=10]
+[ext_resource path="res://Recursos/Iconos/argentina.png" type="Texture" id=11]
 
 [sub_resource type="StyleBoxLine" id=1]
 thickness = 4
@@ -157,6 +159,17 @@ texture = ExtResource( 6 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Traduccion"]
 anims/off = SubResource( 11 )
 anims/on = SubResource( 12 )
+
+[node name="SpriteARG" type="Sprite" parent="Traduccion"]
+position = Vector2( 383, 1550 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 11 )
+
+[node name="SpriteUSA" type="Sprite" parent="Traduccion"]
+visible = false
+position = Vector2( 695, 1550 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 10 )
 
 [node name="BarraInferior" type="Node" parent="."]
 

@@ -160,8 +160,12 @@ func _on_ButtonTraduccion_pressed() -> void:
 	if !estado_traducir:
 		animation_player_toggle.play("on")
 		TranslationServer.set_locale("es")
+		$Traduccion/SpriteARG.visible = true
+		$Traduccion/SpriteUSA.visible = false
 	else:
 		animation_player_toggle.play("off")
 		TranslationServer.set_locale("en")
+		$Traduccion/SpriteARG.visible = false
+		$Traduccion/SpriteUSA.visible = true
 	
 	print(estado_traducir)
