@@ -1,0 +1,32 @@
+﻿,es,en
+KEY_TEST,TESTEANDO,TESTING
+KEY_TITLE,Sistema de gestion \n Educar para Transformar,Management System \n Educar para Transformar
+KEY_LOGIN,Iniciar Sesión,Log in
+KEY_EMAIL,Correo electrónico:,Email:
+KEY_PASSWORD,Contraseña:,Password:
+KEY_FOOTER_1,Educar para Transformar  2001-2023 | Todos los derechos Reservados.,Educar para Transformar  2001-2023 | All rights reserved.
+KEY_FOOTER_2,Team Ozono,Team Ozono
+KEY_TOP_LABEL,Educar para Transformar,Educar para Transformar
+KEY_HORARIO,Horario,Schedule
+KEY_CARGAR_NOTAS,Cargar Notas,Upload Grades
+KEY_MATERIAS,Materias,Subjects
+KEY_SALIR,Salir,Quit
+KEY_BIENVENIDO,Bienvenido ,Welcome 
+KEY_NOTAS_LABEL,Notas de \n Materia,Subjects \n Notes
+KEY_PRIMER_TRIMESTRE,Primer Trimestre,First Term
+KEY_SEGUNDO_TRIMESTRE,Segundo Trimestre,Second Term
+KEY_TERCER_TRIMESTRE,Primer Trimestre,Third Term
+KEY_ACEPTAR,Aceptar,Accept
+KEY_MATERIA,Materia,Subject
+KEY_COMISION,Comisión,Division
+KEY_AULA,Aula,Classroom
+KEY_DIA,Día,Day
+KEY_SELECCIONAR_MATERIA,Seleccione una materia,Select a subject
+KEY_APELLIDO,Apellido,Last name
+KEY_NOMBRE,Nombre,Name
+KEY_SELECCIONAR_ALUMNO,Seleccione un alumno,Select a student
+KEY_IDIOMA,Cambiar idioma,Change language
+KEY_EMAIL_INVALIDO,Correo electrónico o contraseña inválido,Email or password are incorrect
+KEY_DATOS_FALTANTES,Datos faltantes o correo electrónico inválido,Missing data or invalid email
+KEY_SESION_INICIADA,Sesión iniciada,Log in succesfully
+KEY_ROL_INVALIDO,Rol inválido,Invalid role

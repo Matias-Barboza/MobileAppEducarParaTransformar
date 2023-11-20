@@ -11,10 +11,10 @@ var endpointFullname : String = Globals.URL + "/api/fullname/"
 var headers : = ["Content-Type: application/json"]
 var rol : String = ""
 var viene_de_error : bool
-var mensaje : Array = ["Correo electrónico o contraseña inválido",
-						"Datos faltantes o correo electrónico inválido", 
-						"Sesión iniciada",
-						"Rol inválido"]
+var mensaje : Array = ["KEY_EMAIL_INVALIDO",
+						"KEY_DATOS_FALTANTES", 
+						"KEY_SESION_INICIADA",
+						"KEY_ROL_INVALIDO"]
 var posicion_inicial_datos : int = 841
 var posicion_error : int = 885
 var estado_traducir : bool
@@ -156,9 +156,12 @@ func _on_ButtonTraduccion_pressed() -> void:
 	
 	estado_traducir = !estado_traducir
 	
-	if estado_traducir:
+	
+	if !estado_traducir:
 		animation_player_toggle.play("on")
+		TranslationServer.set_locale("es")
 	else:
 		animation_player_toggle.play("off")
+		TranslationServer.set_locale("en")
 	
 	print(estado_traducir)

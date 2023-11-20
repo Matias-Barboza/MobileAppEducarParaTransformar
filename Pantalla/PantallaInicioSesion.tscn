@@ -135,12 +135,12 @@ custom_styles/disabled = SubResource( 8 )
 custom_styles/normal = SubResource( 9 )
 
 [node name="Label" type="Label" parent="Traduccion"]
-margin_left = 378.5
-margin_top = 1434.0
-margin_right = 701.5
-margin_bottom = 1484.0
+margin_left = 334.0
+margin_top = 1440.0
+margin_right = 746.0
+margin_bottom = 1490.0
 custom_fonts/font = SubResource( 10 )
-text = "Cambiar idioma"
+text = "KEY_IDIOMA"
 align = 1
 valign = 1
 
@@ -150,7 +150,7 @@ scale = Vector2( 5, 4.5 )
 texture = ExtResource( 8 )
 
 [node name="CircleSprite" type="Sprite" parent="Traduccion"]
-position = Vector2( 582, 1550 )
+position = Vector2( 497, 1550 )
 scale = Vector2( 1.33333, 1.29167 )
 texture = ExtResource( 6 )
 
@@ -171,7 +171,7 @@ margin_top = 1858.0
 margin_right = 1080.0
 margin_bottom = 1884.0
 custom_fonts/font = SubResource( 2 )
-text = " Educar para Transformar 2001-2023 | Todos los derechos Reservados."
+text = "KEY_FOOTER_1"
 align = 1
 valign = 1
 
@@ -180,13 +180,25 @@ margin_top = 1888.0
 margin_right = 1080.0
 margin_bottom = 1914.0
 custom_fonts/font = SubResource( 3 )
-text = "Team Ozono"
+text = "KEY_FOOTER_2"
 align = 1
 valign = 1
 
 [node name="BoxInicioSesion" type="Node" parent="."]
 
 [node name="IngresoDatos" parent="BoxInicioSesion" instance=ExtResource( 2 )]
+
+[node name="Label" parent="BoxInicioSesion/IngresoDatos/ParteSuperior" index="0"]
+text = "KEY_LOGIN"
+
+[node name="LabelCE" parent="BoxInicioSesion/IngresoDatos/ParteCentral/Datos" index="0"]
+text = "KEY_EMAIL"
+
+[node name="LabelContraseña" parent="BoxInicioSesion/IngresoDatos/ParteCentral/Datos" index="2"]
+text = "KEY_PASSWORD"
+
+[node name="ButtonIS" parent="BoxInicioSesion/IngresoDatos/ParteCentral/Datos" index="5"]
+text = "KEY_LOGIN"
 
 [node name="LoginRequest" type="HTTPRequest" parent="."]
 
