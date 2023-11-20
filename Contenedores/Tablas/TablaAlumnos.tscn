@@ -1,0 +1,91 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Recursos/Fuentes/Montserrat-Bold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Contenedores/Tablas/Tabla.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 1, 1, 1 )
+
+[node name="ScrollContainer" type="ScrollContainer"]
+margin_top = 150.0
+margin_right = 1080.0
+margin_bottom = 1920.0
+
+[node name="TablaAlumnos" type="HBoxContainer" parent="."]
+margin_right = 2146.0
+margin_bottom = 1758.0
+rect_min_size = Vector2( 2146, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 2 )
+ruta_fila = "res://Contenedores/Tablas/FilaAlumno.tscn"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TablaAlumnos"]
+margin_right = 2146.0
+margin_bottom = 1758.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="TablaAlumnos/VBoxContainer"]
+margin_right = 2146.0
+margin_bottom = 50.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TablaAlumnos/VBoxContainer/PanelContainer"]
+margin_right = 2146.0
+margin_bottom = 50.0
+
+[node name="1" type="Label" parent="TablaAlumnos/VBoxContainer/PanelContainer/HBoxContainer"]
+margin_right = 712.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Legajo"
+valign = 1
+
+[node name="2" type="Label" parent="TablaAlumnos/VBoxContainer/PanelContainer/HBoxContainer"]
+margin_left = 716.0
+margin_right = 1429.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Apellido"
+valign = 1
+
+[node name="3" type="Label" parent="TablaAlumnos/VBoxContainer/PanelContainer/HBoxContainer"]
+margin_left = 1433.0
+margin_right = 2146.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Nombre"
+valign = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="TablaAlumnos/VBoxContainer"]
+margin_top = 50.0
+margin_right = 2146.0
+margin_bottom = 1758.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 3 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TablaAlumnos/VBoxContainer/PanelContainer2"]
+margin_right = 2146.0
+margin_bottom = 1708.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TablaAlumnos/VBoxContainer/PanelContainer2/ScrollContainer"]
+margin_right = 2146.0
+margin_bottom = 1708.0
+size_flags_horizontal = 3
+size_flags_vertical = 3

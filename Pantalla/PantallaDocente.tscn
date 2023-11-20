@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://Recursos/Fuentes/Montserrat-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Recursos/Imagenes/Logo esquina EPT.png" type="Texture" id=2]
@@ -9,6 +9,10 @@
 [ext_resource path="res://Recursos/Iconos/cursosHorarios.png" type="Texture" id=7]
 [ext_resource path="res://Recursos/Iconos/salir.png" type="Texture" id=8]
 [ext_resource path="res://Recursos/Iconos/horarios.png" type="Texture" id=9]
+[ext_resource path="res://Contenedores/CargaNotas.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Recursos/Fuentes/Montserrat-SemiBold.ttf" type="DynamicFontData" id=11]
+[ext_resource path="res://Contenedores/Tablas/TablaHorariosDocente.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Contenedores/Tablas/TablaAlumnos.tscn" type="PackedScene" id=13]
 
 [sub_resource type="StyleBoxLine" id=1]
 thickness = 4
@@ -22,6 +26,25 @@ thickness = 4
 [sub_resource type="StyleBoxEmpty" id=5]
 
 [sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxFlat" id=17]
+bg_color = Color( 0.184314, 0.823529, 1, 1 )
+
+[sub_resource type="DynamicFont" id=18]
+size = 100
+font_data = ExtResource( 11 )
+
+[sub_resource type="StyleBoxFlat" id=19]
+bg_color = Color( 0.184314, 0.823529, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0.184314, 0.823529, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=20]
+bg_color = Color( 0.184314, 0.823529, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=22]
+bg_color = Color( 0.184314, 0.823529, 1, 1 )
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0, 0, 0, 0.509804 )
@@ -60,11 +83,75 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="Animation" id=21]
+resource_name = "default"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("MenuLateral/PanelLateral:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -540, 150 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bienvenida/PanelBienvenida:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TablaHorarios/PanelHorarios:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CargarNotas/PanelCargaNotas:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("TablaCursos/PanelCursos:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
 [sub_resource type="Animation" id=12]
 resource_name = "desplegar"
 length = 0.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("MenuLateral/Panel:rect_position")
+tracks/0/path = NodePath("MenuLateral/PanelLateral:rect_position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -80,7 +167,7 @@ tracks/0/keys = {
 resource_name = "replegar"
 length = 0.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("MenuLateral/Panel:rect_position")
+tracks/0/path = NodePath("MenuLateral/PanelLateral:rect_position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -141,22 +228,91 @@ position = Vector2( 50, 49 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 
+[node name="Bienvenida" type="Node" parent="."]
+
+[node name="PanelBienvenida" type="Panel" parent="Bienvenida"]
+margin_top = 147.0
+margin_right = 1080.0
+margin_bottom = 1917.0
+custom_styles/panel = SubResource( 17 )
+
+[node name="Label" type="Label" parent="Bienvenida/PanelBienvenida"]
+margin_left = 246.0
+margin_top = 316.0
+margin_right = 834.0
+margin_bottom = 439.0
+custom_fonts/font = SubResource( 18 )
+text = "Bienvenido"
+
+[node name="TablaHorarios" type="Node" parent="."]
+
+[node name="PanelHorarios" type="Panel" parent="TablaHorarios"]
+visible = false
+margin_top = 150.0
+margin_right = 1080.0
+margin_bottom = 1920.0
+custom_styles/panel = SubResource( 19 )
+
+[node name="ScrollContainer" parent="TablaHorarios/PanelHorarios" instance=ExtResource( 12 )]
+margin_top = 0.0
+margin_bottom = 1770.0
+
+[node name="CargarNotas" type="Node" parent="."]
+
+[node name="PanelCargaNotas" type="Panel" parent="CargarNotas"]
+visible = false
+margin_top = 150.0
+margin_right = 1080.0
+margin_bottom = 1920.0
+custom_styles/panel = SubResource( 16 )
+
+[node name="CargaNotas" parent="CargarNotas/PanelCargaNotas" instance=ExtResource( 10 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -421.5
+margin_top = -355.0
+margin_right = 421.5
+margin_bottom = 355.0
+
+[node name="TablaCursos" type="Node" parent="."]
+
+[node name="PanelCursos" type="Panel" parent="TablaCursos"]
+visible = false
+margin_top = 150.0
+margin_right = 1080.0
+margin_bottom = 1920.0
+custom_styles/panel = SubResource( 20 )
+
+[node name="ScrollContainer" parent="TablaCursos/PanelCursos" instance=ExtResource( 13 )]
+margin_top = 0.0
+margin_bottom = 1770.0
+
+[node name="TablaCursosHorarios" type="Node" parent="."]
+
+[node name="Panel" type="Panel" parent="TablaCursosHorarios"]
+margin_top = 150.0
+margin_right = 1080.0
+margin_bottom = 1920.0
+custom_styles/panel = SubResource( 22 )
+
 [node name="MenuLateral" type="Node" parent="."]
 
-[node name="Panel" type="Panel" parent="MenuLateral"]
+[node name="PanelLateral" type="Panel" parent="MenuLateral"]
 margin_left = -540.0
 margin_top = 150.0
 margin_bottom = 1920.0
 custom_styles/panel = SubResource( 7 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuLateral/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuLateral/PanelLateral"]
 margin_right = 540.0
 margin_bottom = 1770.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 12
 
-[node name="ButtonHorarios" type="Button" parent="MenuLateral/Panel/VBoxContainer"]
+[node name="ButtonHorarios" type="Button" parent="MenuLateral/PanelLateral/VBoxContainer"]
 margin_right = 540.0
 margin_bottom = 90.0
 rect_min_size = Vector2( 0, 90 )
@@ -171,7 +327,7 @@ text = "Horarios"
 icon = ExtResource( 9 )
 align = 0
 
-[node name="ButtonCargarNotas" type="Button" parent="MenuLateral/Panel/VBoxContainer"]
+[node name="ButtonCargarNotas" type="Button" parent="MenuLateral/PanelLateral/VBoxContainer"]
 margin_top = 102.0
 margin_right = 540.0
 margin_bottom = 192.0
@@ -187,7 +343,7 @@ text = "Cargar notas"
 icon = ExtResource( 5 )
 align = 0
 
-[node name="ButtonCursos" type="Button" parent="MenuLateral/Panel/VBoxContainer"]
+[node name="ButtonCursos" type="Button" parent="MenuLateral/PanelLateral/VBoxContainer"]
 margin_top = 204.0
 margin_right = 540.0
 margin_bottom = 294.0
@@ -203,7 +359,7 @@ text = "Cursos"
 icon = ExtResource( 6 )
 align = 0
 
-[node name="ButtonCombinado" type="Button" parent="MenuLateral/Panel/VBoxContainer"]
+[node name="ButtonCombinado" type="Button" parent="MenuLateral/PanelLateral/VBoxContainer"]
 margin_top = 306.0
 margin_right = 540.0
 margin_bottom = 396.0
@@ -219,7 +375,7 @@ text = "Cursos y horarios"
 icon = ExtResource( 7 )
 align = 0
 
-[node name="ButtonSalir" type="Button" parent="MenuLateral/Panel/VBoxContainer"]
+[node name="ButtonSalir" type="Button" parent="MenuLateral/PanelLateral/VBoxContainer"]
 margin_top = 408.0
 margin_right = 540.0
 margin_bottom = 498.0
@@ -233,16 +389,17 @@ custom_styles/normal = SubResource( 11 )
 text = "Salir"
 icon = ExtResource( 8 )
 
-[node name="TablaHorarios" type="Node" parent="."]
-
-[node name="CargarNotas" type="Node" parent="."]
-
-[node name="TablaCursos" type="Node" parent="."]
-
-[node name="TablaCursosHorarios" type="Node" parent="."]
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+anims/default = SubResource( 21 )
 anims/desplegar = SubResource( 12 )
 anims/replegar = SubResource( 13 )
 
 [connection signal="pressed" from="BarraSuperior/ButtonMenuLateral" to="." method="_on_ButtonMenuLateral_pressed"]
+[connection signal="pressed" from="CargarNotas/PanelCargaNotas/CargaNotas/ParteCentral/Notas/ButtonCN" to="." method="_on_ButtonCN_pressed"]
+[connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonHorarios" to="." method="_on_ButtonHorarios_pressed"]
+[connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonCargarNotas" to="." method="_on_ButtonCargarNotas_pressed"]
+[connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonCursos" to="." method="_on_ButtonCursos_pressed"]
+[connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonCombinado" to="." method="_on_ButtonCombinado_pressed"]
+
+[editable path="CargarNotas/PanelCargaNotas/CargaNotas"]
