@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://Recursos/Fuentes/Montserrat-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Recursos/Imagenes/Logo esquina EPT.png" type="Texture" id=2]
@@ -40,11 +40,19 @@ bg_color = Color( 0.184314, 0.823529, 1, 1 )
 size = 100
 font_data = ExtResource( 11 )
 
-[sub_resource type="StyleBoxFlat" id=37]
-bg_color = Color( 0.184314, 0.823529, 1, 1 )
-
 [sub_resource type="StyleBoxFlat" id=19]
 bg_color = Color( 0.184314, 0.823529, 1, 1 )
+
+[sub_resource type="DynamicFont" id=39]
+size = 60
+font_data = ExtResource( 11 )
+
+[sub_resource type="StyleBoxFlat" id=40]
+bg_color = Color( 0.992157, 0.992157, 0.992157, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id=38]
 bg_color = Color( 0.184314, 0.823529, 1, 1 )
@@ -57,6 +65,17 @@ bg_color = Color( 0.184314, 0.823529, 1, 1 )
 
 [sub_resource type="StyleBoxFlat" id=20]
 bg_color = Color( 0.184314, 0.823529, 1, 1 )
+
+[sub_resource type="DynamicFont" id=41]
+size = 60
+font_data = ExtResource( 11 )
+
+[sub_resource type="StyleBoxFlat" id=42]
+bg_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id=22]
 bg_color = Color( 0.184314, 0.823529, 1, 1 )
@@ -227,18 +246,6 @@ tracks/5/keys = {
 "update": 1,
 "values": [ false ]
 }
-tracks/6/type = "value"
-tracks/6/path = NodePath("Horarios/PanelSeleccionMateria:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
 
 [sub_resource type="Animation" id=30]
 length = 0.5
@@ -338,17 +345,6 @@ text = "KEY_BIENVENIDO"
 
 [node name="Horarios" type="Node" parent="."]
 
-[node name="PanelSeleccionMateria" type="Panel" parent="Horarios"]
-visible = false
-margin_top = 150.0
-margin_right = 1080.0
-margin_bottom = 1920.0
-custom_styles/panel = SubResource( 37 )
-
-[node name="SeleccionMateria" parent="Horarios/PanelSeleccionMateria" instance=ExtResource( 19 )]
-margin_top = 358.0
-margin_bottom = -934.0
-
 [node name="PanelHorarios" type="Panel" parent="Horarios"]
 visible = false
 margin_top = 150.0
@@ -356,8 +352,35 @@ margin_right = 1080.0
 margin_bottom = 1920.0
 custom_styles/panel = SubResource( 19 )
 
+[node name="LabelLH" type="Label" parent="Horarios/PanelHorarios"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -362.5
+margin_top = -839.0
+margin_right = 362.5
+margin_bottom = -764.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 39 )
+custom_styles/normal = SubResource( 40 )
+text = "Listado de horarios"
+align = 1
+valign = 1
+
+[node name="Sprite" type="Sprite" parent="Horarios/PanelHorarios"]
+self_modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 210, 85 )
+scale = Vector2( 1.1, 1.1 )
+texture = ExtResource( 9 )
+
+[node name="Panel" type="Panel" parent="Horarios/PanelHorarios"]
+margin_top = 170.0
+margin_right = 1080.0
+margin_bottom = 1770.0
+
 [node name="ScrollContainer" parent="Horarios/PanelHorarios" instance=ExtResource( 12 )]
-margin_top = 0.0
+margin_top = 170.0
 margin_bottom = 1770.0
 
 [node name="CargarNotas" type="Node" parent="."]
@@ -404,8 +427,35 @@ margin_right = 1080.0
 margin_bottom = 1920.0
 custom_styles/panel = SubResource( 20 )
 
+[node name="LabelLA" type="Label" parent="Cursos/PanelCursos"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -362.5
+margin_top = -843.0
+margin_right = 362.5
+margin_bottom = -768.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 41 )
+custom_styles/normal = SubResource( 42 )
+text = "Listado de alumnos"
+align = 1
+valign = 1
+
+[node name="Sprite" type="Sprite" parent="Cursos/PanelCursos"]
+self_modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 213, 82 )
+scale = Vector2( 1.1, 1.1 )
+texture = ExtResource( 6 )
+
+[node name="Panel" type="Panel" parent="Cursos/PanelCursos"]
+margin_top = 170.0
+margin_right = 1080.0
+margin_bottom = 1770.0
+
 [node name="ScrollContainer" parent="Cursos/PanelCursos" instance=ExtResource( 13 )]
-margin_top = 0.0
+margin_top = 170.0
 margin_bottom = 1770.0
 
 [node name="CursosHorarios" type="Node" parent="."]
@@ -592,7 +642,6 @@ anims/replegar = SubResource( 13 )
 [connection signal="request_completed" from="GetNota" to="." method="_on_GetNota_request_completed"]
 [connection signal="request_completed" from="ModificarNota" to="." method="_on_ModificarNota_request_completed"]
 
-[editable path="Horarios/PanelSeleccionMateria/SeleccionMateria"]
 [editable path="CargarNotas/PanelSeleccionAlumno/SeleccionAlumno"]
 [editable path="CargarNotas/PanelCargaNotas/CargaNotas"]
 [editable path="Cursos/PanelSeleccionCurso/SeleccionMateria"]

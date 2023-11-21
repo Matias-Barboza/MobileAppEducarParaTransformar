@@ -31,29 +31,43 @@ var nota_Seleccionada
 # Atributos Onready
 onready var animation_player : AnimationPlayer = $AnimationPlayer
 onready var panel_bienvenida : Panel = $Bienvenida/PanelBienvenida
-onready var panel_horarios : Panel = $Horarios/PanelHorarios
-onready var panel_cursos : Panel = $Cursos/PanelCursos
-onready var panel_carga_notas : Panel = $CargarNotas/PanelCargaNotas
-onready var panel_cursos_horarios : Panel = $CursosHorarios/PanelCursosHorarios
 
-onready var panel_seleccion_materia = $Horarios/PanelSeleccionMateria
-onready var panel_seleccion_alumno = $CargarNotas/PanelSeleccionAlumno
-onready var panel_seleccion_curso = $Cursos/PanelSeleccionCurso
 
+# Onready relacionados a la traduccion
 onready var animation_player_toggle : AnimationPlayer = $MenuLateral/PanelLateral/VBoxContainer/Control/AnimationPlayer
 onready var sprite_arg : Sprite = $MenuLateral/PanelLateral/VBoxContainer/Control/SpriteARG
 onready var sprite_usa : Sprite = $MenuLateral/PanelLateral/VBoxContainer/Control/SpriteUSA
 
-onready var seleccion_materia_horarios : OptionButton = $Horarios/PanelSeleccionMateria/SeleccionMateria/ParteCentral/MateriaSeleccion/OptionButton
-onready var seleccion_materia_alumnos : OptionButton = $Cursos/PanelSeleccionCurso/SeleccionMateria/ParteCentral/MateriaSeleccion/OptionButton
+
+# Onready relacionado a las request
+onready var request_materias : HTTPRequest = $GetMaterias
+
+
+# Onready relacionados a la tabla de horarios por materia que tiene un profesor
+onready var panel_horarios : Panel = $Horarios/PanelHorarios
+onready var tabla_horarios_de_materias : = $Horarios/PanelHorarios/ScrollContainer/TablaHorariosDocente
+
+
+# Onready relacionados a la carga de notas por alumno
+onready var panel_carga_notas : Panel = $CargarNotas/PanelCargaNotas
+onready var panel_seleccion_alumno = $CargarNotas/PanelSeleccionAlumno
+
+onready var label_mensaje_estado_cargar_notas : Label = $CargarNotas/PanelCargaNotas/CargaNotas/ParteCentral/LabelMensaje
 onready var seleccion_materia_cargar_notas : OptionButton = $CargarNotas/PanelSeleccionAlumno/SeleccionAlumno/ParteCentral/AlumnoSeleccion/OptionButtonMateria
 
-onready var tabla_alumno : = $Cursos/PanelCursos/ScrollContainer/TablaAlumnos
-onready var tabla_materias : = $Horarios/PanelHorarios/ScrollContainer/TablaHorariosDocente
-onready var label_mensaje : Label = $CargarNotas/PanelCargaNotas/CargaNotas/ParteCentral/LabelMensaje
+
+# Onready relacionados a la tabla de alumnos por curso
+onready var panel_seleccion_curso = $Cursos/PanelSeleccionCurso
+onready var panel_cursos : Panel = $Cursos/PanelCursos
+
 onready var label_mensaje_cursos : Label = $Cursos/PanelSeleccionCurso/SeleccionMateria/ParteCentral/LabelMensaje
+onready var seleccion_materia_alumnos_por_curso : OptionButton = $Cursos/PanelSeleccionCurso/SeleccionMateria/ParteCentral/MateriaSeleccion/OptionButton
 onready var boton_buscar_materia : Button = $Cursos/PanelSeleccionCurso/SeleccionMateria/ParteCentral/MateriaSeleccion/ButtonSM
-onready var request_materias : HTTPRequest = $GetMaterias
+onready var tabla_alumnos_por_curso : = $Cursos/PanelCursos/ScrollContainer/TablaAlumnos
+
+
+# Falta implementar
+onready var panel_cursos_horarios : Panel = $CursosHorarios/PanelCursosHorarios
 
 
 # Metodos
@@ -62,7 +76,10 @@ func _ready() -> void:
 	boton_buscar_materia.set_deferred("disabled", true)
 	
 	desplegado = false
-	paneles = [panel_bienvenida, panel_seleccion_materia, panel_seleccion_alumno, panel_seleccion_curso, panel_cursos_horarios, panel_cursos]
+	paneles = [panel_bienvenida, panel_horarios,
+	panel_seleccion_alumno, panel_carga_notas, 
+	panel_seleccion_curso, panel_cursos,
+	panel_cursos_horarios]
 	escena_login = load("res://Pantalla/PantallaInicioSesion.tscn")
 	if TranslationServer.get_locale() == "es":
 		animation_player_toggle.play("on")
@@ -85,11 +102,16 @@ func activar_panel(panel_a_visibilizar : Panel):
 		else:
 			panel.visible = true
 	
+	if desplegado:
+		animation_player.play("replegar")
+		desplegado = not desplegado
+	
 	#animation_player.play("replegar")
 	#desplegado = not desplegado
 
 
 func convertir_dia_a_espanol(dia_en_ingles: String) -> String:
+	
 	var dias = {
 		"MONDAY": "Lunes",
 		"TUESDAY": "Martes",
@@ -119,7 +141,7 @@ func _on_ButtonMenuLateral_pressed() -> void:
 
 func _on_ButtonHorarios_pressed() -> void:
 	
-	activar_panel(panel_seleccion_materia)
+	activar_panel(panel_horarios)
 
 
 func _on_ButtonCargarNotas_pressed() -> void:
@@ -133,7 +155,8 @@ func _on_ButtonCursos_pressed() -> void:
 
 
 func _on_ButtonCombinado_pressed() -> void:
-	pass # Replace with function body.
+	
+	activar_panel(panel_cursos_horarios)
 
 
 func _on_ButtonCN_pressed() -> void:
@@ -167,7 +190,7 @@ func _on_GetMaterias_request_completed(_result: int, response_code: int, _header
 	if response_code == 200:
 		var json = JSON.parse(body.get_string_from_utf8())
 		
-		tabla_materias.reiniciar_tabla()
+		tabla_horarios_de_materias.reiniciar_tabla()
 		yield(get_tree().create_timer(0.5), "timeout")
 		
 		for materia in json.result:
@@ -178,8 +201,8 @@ func _on_GetMaterias_request_completed(_result: int, response_code: int, _header
 			add_child(request)
 			request.request('{URL}{id}/students'.format({"URL" : endpointAlumnos, "id" : materia["id"]}))
 			
-			seleccion_materia_horarios.get_popup().add_item(materia["class_name"] + " ("+ materia.division.division_name + ")")
-			seleccion_materia_alumnos.get_popup().add_item(materia["class_name"] + " ("+ materia.division.division_name + ")")
+			#seleccion_materia_horarios.get_popup().add_item(materia["class_name"] + " ("+ materia.division.division_name + ")")
+			seleccion_materia_alumnos_por_curso.get_popup().add_item(materia["class_name"] + " ("+ materia.division.division_name + ")")
 			seleccion_materia_cargar_notas.get_popup().add_item(materia["class_name"] + " ("+ materia.division.division_name + ")")
 			
 			for horario in materia.schedules:
@@ -192,7 +215,7 @@ func _on_GetMaterias_request_completed(_result: int, response_code: int, _header
 				arreglo_materias.append(datos_materia)
 				datos_materia = []
 				
-		tabla_materias.set_data(arreglo_materias)
+		tabla_horarios_de_materias.set_data(arreglo_materias)
 	else:
 		print("Error al obtener los horarios")
 
@@ -214,11 +237,11 @@ func _on_GetNota_request_completed(_result: int, response_code: int, _headers: P
 func _on_ModificarNota_request_completed(_result: int, response_code: int, _headers: PoolStringArray, _body: PoolByteArray) -> void:
 
 	if response_code == 200:
-		label_mensaje.text = "Notas modificadas con exito"
+		label_mensaje_estado_cargar_notas.text = "Notas modificadas con exito"
 	else:
-		label_mensaje.text = "Las notas no han sido modificadas"
+		label_mensaje_estado_cargar_notas.text = "Las notas no han sido modificadas"
 	
-	label_mensaje.visible = true
+	label_mensaje_estado_cargar_notas.visible = true
 
 
 func _on_request_alumnos_completed(_result, response_code, _headers, body, params):
@@ -256,13 +279,13 @@ func _on_ButtonSM_pressed() -> void:
 		var alumnos_de_la_materia = obtener_alumnos_de_materia(materia_seleccionada["class_name"] + materia_seleccionada["division"]["division_name"])
 		
 		if alumnos_de_la_materia.empty():
-			seleccion_materia_alumnos.selected = -1
+			seleccion_materia_alumnos_por_curso.selected = -1
 			label_mensaje_cursos.text = "La lista está vacía. Intente nuevamente."
 			label_mensaje_cursos.visible = true
 			return
 		
 		alumnos = alumnos_de_la_materia
-		tabla_alumno.reiniciar_tabla()
+		tabla_alumnos_por_curso.reiniciar_tabla()
 		arreglo_alumnos = []
 		
 		yield(get_tree().create_timer(0.2), "timeout")
@@ -273,8 +296,8 @@ func _on_ButtonSM_pressed() -> void:
 			datos_alumno.insert(3, alumno.username)
 			arreglo_alumnos.append(datos_alumno)
 			datos_alumno = []
-		tabla_alumno.set_data(arreglo_alumnos)
+		tabla_alumnos_por_curso.set_data(arreglo_alumnos)
 		
 		activar_panel(panel_cursos)
 		
-		seleccion_materia_alumnos.selected = -1
+		seleccion_materia_alumnos_por_curso.selected = -1
