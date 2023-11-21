@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://Recursos/Fuentes/Montserrat-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Recursos/Imagenes/Logo esquina EPT.png" type="Texture" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://Recursos/Iconos/united-states.png" type="Texture" id=17]
 [ext_resource path="res://Contenedores/SeleccionAlumno.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Contenedores/SeleccionMateria.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Recursos/Iconos/Spinner.png" type="Texture" id=20]
 
 [sub_resource type="StyleBoxLine" id=1]
 thickness = 4
@@ -99,6 +100,9 @@ border_color = Color( 0.0666667, 0.262745, 0.501961, 1 )
 corner_radius_top_right = 5
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id=45]
+bg_color = Color( 0, 0, 0, 0.192157 )
 
 [sub_resource type="StyleBoxFlat" id=11]
 content_margin_left = 10.0
@@ -278,6 +282,50 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 150 ), Vector2( -713, 150 ) ]
 }
 
+[sub_resource type="Animation" id=43]
+resource_name = "girar"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cursos/PanelSeleccionCurso/SeleccionMateria/ParteSuperior/SpriteSpinner:rotation_degrees")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Cursos/PanelSeleccionCurso/SeleccionMateria/ParteSuperior/SpriteSpinner:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=44]
+resource_name = "ocultar"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cursos/PanelSeleccionCurso/SeleccionMateria/ParteSuperior/SpriteSpinner:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
 [node name="PantallaDocente" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -420,6 +468,12 @@ custom_styles/panel = SubResource( 36 )
 margin_top = 358.0
 margin_bottom = -934.0
 
+[node name="SpriteSpinner" type="Sprite" parent="Cursos/PanelSeleccionCurso/SeleccionMateria/ParteSuperior" index="0"]
+visible = false
+position = Vector2( 349.5, -159 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 20 )
+
 [node name="PanelCursos" type="Panel" parent="Cursos"]
 visible = false
 margin_top = 150.0
@@ -487,11 +541,13 @@ margin_right = 713.0
 margin_bottom = 90.0
 rect_min_size = Vector2( 0, 90 )
 mouse_filter = 1
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_constants/hseparation = 18
 custom_fonts/font = SubResource( 8 )
 custom_styles/hover = SubResource( 9 )
 custom_styles/pressed = SubResource( 10 )
+custom_styles/disabled = SubResource( 45 )
 custom_styles/normal = SubResource( 11 )
 text = "KEY_HORARIOS"
 icon = ExtResource( 9 )
@@ -503,11 +559,13 @@ margin_right = 713.0
 margin_bottom = 192.0
 rect_min_size = Vector2( 0, 90 )
 mouse_filter = 1
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_constants/hseparation = 18
 custom_fonts/font = SubResource( 8 )
 custom_styles/hover = SubResource( 9 )
 custom_styles/pressed = SubResource( 10 )
+custom_styles/disabled = SubResource( 45 )
 custom_styles/normal = SubResource( 11 )
 text = "KEY_CARGAR_NOTAS"
 icon = ExtResource( 5 )
@@ -519,11 +577,13 @@ margin_right = 713.0
 margin_bottom = 294.0
 rect_min_size = Vector2( 0, 90 )
 mouse_filter = 1
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_constants/hseparation = 18
 custom_fonts/font = SubResource( 8 )
 custom_styles/hover = SubResource( 9 )
 custom_styles/pressed = SubResource( 10 )
+custom_styles/disabled = SubResource( 45 )
 custom_styles/normal = SubResource( 11 )
 text = "KEY_CURSOS"
 icon = ExtResource( 6 )
@@ -535,11 +595,13 @@ margin_right = 713.0
 margin_bottom = 396.0
 rect_min_size = Vector2( 0, 90 )
 mouse_filter = 1
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_constants/hseparation = 18
 custom_fonts/font = SubResource( 8 )
 custom_styles/hover = SubResource( 9 )
 custom_styles/pressed = SubResource( 10 )
+custom_styles/disabled = SubResource( 45 )
 custom_styles/normal = SubResource( 11 )
 text = "KEY_CURSOS_Y_HORARIOS"
 icon = ExtResource( 7 )
@@ -617,6 +679,11 @@ anims/default = SubResource( 21 )
 anims/desplegar = SubResource( 30 )
 anims/replegar = SubResource( 13 )
 
+[node name="AnimationPlayerSpinner" type="AnimationPlayer" parent="."]
+autoplay = "ocultar"
+anims/girar = SubResource( 43 )
+anims/ocultar = SubResource( 44 )
+
 [node name="GetMaterias" type="HTTPRequest" parent="."]
 
 [node name="GetAlumnos" type="HTTPRequest" parent="."]
@@ -628,6 +695,8 @@ anims/replegar = SubResource( 13 )
 [node name="ModificarNota" type="HTTPRequest" parent="."]
 
 [connection signal="pressed" from="BarraSuperior/ButtonMenuLateral" to="." method="_on_ButtonMenuLateral_pressed"]
+[connection signal="item_selected" from="CargarNotas/PanelSeleccionAlumno/SeleccionAlumno/ParteCentral/AlumnoSeleccion/OptionButtonMateria" to="." method="_on_OptionButtonMateriaCN_item_selected"]
+[connection signal="item_selected" from="CargarNotas/PanelSeleccionAlumno/SeleccionAlumno/ParteCentral/AlumnoSeleccion/OptionButtonAlumno" to="." method="_on_OptionButtonAlumnoCN_item_selected"]
 [connection signal="item_selected" from="Cursos/PanelSeleccionCurso/SeleccionMateria/ParteCentral/MateriaSeleccion/OptionButton" to="." method="_on_OptionButton_item_selected"]
 [connection signal="pressed" from="Cursos/PanelSeleccionCurso/SeleccionMateria/ParteCentral/MateriaSeleccion/ButtonSM" to="." method="_on_ButtonSM_pressed"]
 [connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonHorarios" to="." method="_on_ButtonHorarios_pressed"]

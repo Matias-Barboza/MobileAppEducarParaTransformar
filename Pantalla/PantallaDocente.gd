@@ -1,8 +1,5 @@
 extends Control
 
-# Atributos Export
-#export var escena_login : PackedScene
-
 
 # Atributos
 var header : = [ "content-type: application/json"]
@@ -44,19 +41,24 @@ onready var request_materias : HTTPRequest = $GetMaterias
 
 
 # Onready relacionados a la tabla de horarios por materia que tiene un profesor
+onready var boton_mostrar_horariosML : Button = $MenuLateral/PanelLateral/VBoxContainer/ButtonHorarios
 onready var panel_horarios : Panel = $Horarios/PanelHorarios
 onready var tabla_horarios_de_materias : = $Horarios/PanelHorarios/ScrollContainer/TablaHorariosDocente
 
 
 # Onready relacionados a la carga de notas por alumno
+onready var boton_cargar_notasML : Button = $MenuLateral/PanelLateral/VBoxContainer/ButtonCargarNotas
 onready var panel_carga_notas : Panel = $CargarNotas/PanelCargaNotas
 onready var panel_seleccion_alumno = $CargarNotas/PanelSeleccionAlumno
 
+onready var boton_buscar_alumno : Button = $CargarNotas/PanelSeleccionAlumno/SeleccionAlumno/ParteCentral/AlumnoSeleccion/ButtonBA
 onready var label_mensaje_estado_cargar_notas : Label = $CargarNotas/PanelCargaNotas/CargaNotas/ParteCentral/LabelMensaje
 onready var seleccion_materia_cargar_notas : OptionButton = $CargarNotas/PanelSeleccionAlumno/SeleccionAlumno/ParteCentral/AlumnoSeleccion/OptionButtonMateria
+onready var seleccion_alumno_cargar_notas : OptionButton = $CargarNotas/PanelSeleccionAlumno/SeleccionAlumno/ParteCentral/AlumnoSeleccion/OptionButtonAlumno
 
 
 # Onready relacionados a la tabla de alumnos por curso
+onready var boton_buscar_cursoML : Button = $MenuLateral/PanelLateral/VBoxContainer/ButtonCursos
 onready var panel_seleccion_curso = $Cursos/PanelSeleccionCurso
 onready var panel_cursos : Panel = $Cursos/PanelCursos
 
@@ -67,12 +69,25 @@ onready var tabla_alumnos_por_curso : = $Cursos/PanelCursos/ScrollContainer/Tabl
 
 
 # Falta implementar
+onready var boton_combinadoML : Button = $MenuLateral/PanelLateral/VBoxContainer/ButtonCombinado
 onready var panel_cursos_horarios : Panel = $CursosHorarios/PanelCursosHorarios
 
 
 # Metodos
 func _ready() -> void:
 	
+	
+	boton_mostrar_horariosML.set_deferred("disabled", true)
+	boton_cargar_notasML.set_deferred("disabled", true)
+	boton_buscar_cursoML.set_deferred("disabled", true)
+	boton_combinadoML.set_deferred("disabled", true)
+	
+	
+	seleccion_alumno_cargar_notas.set_deferred("disabled", true)
+	boton_buscar_alumno.set_deferred("disabled", true)
+	
+	
+	$AnimationPlayerSpinner.play("girar")
 	boton_buscar_materia.set_deferred("disabled", true)
 	
 	desplegado = false
@@ -105,9 +120,6 @@ func activar_panel(panel_a_visibilizar : Panel):
 	if desplegado:
 		animation_player.play("replegar")
 		desplegado = not desplegado
-	
-	#animation_player.play("replegar")
-	#desplegado = not desplegado
 
 
 func convertir_dia_a_espanol(dia_en_ingles: String) -> String:
@@ -201,7 +213,6 @@ func _on_GetMaterias_request_completed(_result: int, response_code: int, _header
 			add_child(request)
 			request.request('{URL}{id}/students'.format({"URL" : endpointAlumnos, "id" : materia["id"]}))
 			
-			#seleccion_materia_horarios.get_popup().add_item(materia["class_name"] + " ("+ materia.division.division_name + ")")
 			seleccion_materia_alumnos_por_curso.get_popup().add_item(materia["class_name"] + " ("+ materia.division.division_name + ")")
 			seleccion_materia_cargar_notas.get_popup().add_item(materia["class_name"] + " ("+ materia.division.division_name + ")")
 			
@@ -216,6 +227,11 @@ func _on_GetMaterias_request_completed(_result: int, response_code: int, _header
 				datos_materia = []
 				
 		tabla_horarios_de_materias.set_data(arreglo_materias)
+		
+		boton_mostrar_horariosML.set_deferred("disabled", false)
+		boton_cargar_notasML.set_deferred("disabled", false)
+		boton_buscar_cursoML.set_deferred("disabled", false)
+		boton_combinadoML.set_deferred("disabled", false)
 	else:
 		print("Error al obtener los horarios")
 
@@ -252,6 +268,7 @@ func _on_request_alumnos_completed(_result, response_code, _headers, body, param
 		var json = JSON.parse(body.get_string_from_utf8())
 		var datos_materia = {"materia": materia, "alumnos": json.result}
 		alumnos_por_materia.append(datos_materia)
+		$AnimationPlayerSpinner.play("ocultar")
 		boton_buscar_materia.set_deferred("disabled", false)
 	else:
 		print("Error al obtener los alumnos de la materia", materia, ". Código de respuesta:", response_code)
@@ -260,8 +277,6 @@ func _on_request_alumnos_completed(_result, response_code, _headers, body, param
 func _on_OptionButton_item_selected(index: int) -> void:
 	
 	materia_seleccionada = listaMaterias[index]
-	
-	#label_nombre_materia.text = materia_seleccionada["class_name"]
 
 
 func obtener_alumnos_de_materia(materia):
@@ -301,3 +316,24 @@ func _on_ButtonSM_pressed() -> void:
 		activar_panel(panel_cursos)
 		
 		seleccion_materia_alumnos_por_curso.selected = -1
+
+
+func _on_OptionButtonMateriaCN_item_selected(index: int) -> void:
+	
+	materia_seleccionada = listaMaterias[index]
+	
+	if materia_seleccionada["class_name"] != null:
+		
+		seleccion_alumno_cargar_notas.set_deferred("disabled",true)
+		
+		var alumnos_de_la_materia = obtener_alumnos_de_materia(materia_seleccionada["class_name"] + materia_seleccionada["division"]["division_name"])
+		
+		for alumno in alumnos_de_la_materia:
+			seleccion_alumno_cargar_notas.get_popup().add_item(str(alumno.lastname) + " " + str(alumno.firstname))
+		
+		seleccion_alumno_cargar_notas.set_deferred("disabled",false)
+
+func _on_OptionButtonAlumnoCN_item_selected(index: int) -> void:
+	
+	#alumno_seleccionado
+	pass
