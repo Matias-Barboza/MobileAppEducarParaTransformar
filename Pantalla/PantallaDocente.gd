@@ -7,6 +7,7 @@ var endpointMaterias : String = Globals.URL + "/api/teachers/classes/" + str(Glo
 var endpointAlumnos: String = Globals.URL + "/api/classes/"
 var endpointNota : String = Globals.URL + "/api/notes/student/"
 var endpointModificarNota : String = Globals.URL + "/api/notes"
+var endpointAlumnosId : String = Globals.URL + "/api/divisions/students/"
 
 var desplegado : bool
 var estado_traducir : bool
@@ -20,8 +21,10 @@ var datos_alumno : = []
 var arreglo_materias : = []
 var datos_materia : = []
 var alumnos_por_materia : = []
+var alumnos_por_materia_id : = []
 var materia_seleccionada 
 var nota_Seleccionada
+var alumno
 
 
 # Atributos Onready
@@ -55,6 +58,9 @@ onready var label_mensaje_estado_cargar_notas : Label = $CargarNotas/PanelCargaN
 onready var seleccion_materia_cargar_notas : OptionButton = $CargarNotas/PanelSeleccionAlumno/SeleccionAlumno/ParteCentral/AlumnoSeleccion/OptionButtonMateria
 onready var seleccion_alumno_cargar_notas : OptionButton = $CargarNotas/PanelSeleccionAlumno/SeleccionAlumno/ParteCentral/AlumnoSeleccion/OptionButtonAlumno
 
+onready var nota_1 = $CargarNotas/PanelCargaNotas/CargaNotas/ParteCentral/Notas/Nota1erTri2
+onready var nota_2 = $CargarNotas/PanelCargaNotas/CargaNotas/ParteCentral/Notas/Nota2doTri2
+onready var nota_3 = $CargarNotas/PanelCargaNotas/CargaNotas/ParteCentral/Notas/Nota3erTri2
 
 # Onready relacionados a la tabla de alumnos por curso
 onready var boton_buscar_cursoML : Button = $MenuLateral/PanelLateral/VBoxContainer/ButtonCursos
@@ -208,6 +214,11 @@ func _on_GetMaterias_request_completed(_result: int, response_code: int, _header
 			add_child(request)
 			request.request('{URL}{id}/students'.format({"URL" : endpointAlumnos, "id" : materia["id"]}))
 			
+			var request2 = HTTPRequest.new()
+			request2.connect("request_completed", self, "_on_request_alumnosId_completed", [materia])
+			add_child(request2)
+			request2.request('{URL}{id}'.format({"URL" : endpointAlumnosId, "id" : materia.division.id}))
+			
 			seleccion_materia_alumnos_por_curso.get_popup().add_item(materia["class_name"] + " ("+ materia.division.division_name + ")")
 			seleccion_materia_cargar_notas.get_popup().add_item(materia["class_name"] + " ("+ materia.division.division_name + ")")
 			
@@ -241,13 +252,28 @@ func _on_request_alumnos_completed(_result, response_code, _headers, body, param
 		$AnimationPlayerSpinner.play("ocultar")
 		boton_buscar_materia.set_deferred("disabled", false)
 	else:
-		print("Error al obtener los alumnos de la materia", materia, ". Código de respuesta:", response_code)
+		print("Error al obtener los alumnos sin id", materia, ". Código de respuesta:", response_code)
 
+func _on_request_alumnosId_completed(_result, response_code, _headers, body, params):
+	var materia = params["class_name"] + params["division"]["division_name"]
+	
+	if response_code == 200:
+		var json = JSON.parse(body.get_string_from_utf8())
+		var datos_materia = {"materia": materia, "alumnos": json.result}
+		alumnos_por_materia_id.append(datos_materia)
+	else:
+		print("Error al obtener los alumnos con id. Código de respuesta:", response_code)
 
 func _on_OptionButton_item_selected(index: int) -> void:
 	
 	materia_seleccionada = listaMaterias[index]
 
+func obtener_alumnos_de_materia_id(materia):
+	
+	for datos_materia in alumnos_por_materia_id:
+		if datos_materia["materia"] == materia:
+			return datos_materia["alumnos"]
+	return []
 
 func obtener_alumnos_de_materia(materia):
 	
@@ -290,14 +316,13 @@ func _on_ButtonSM_pressed() -> void:
 
 
 func _on_OptionButtonMateriaCN_item_selected(index: int) -> void:
-	
 	materia_seleccionada = listaMaterias[index]
 	
 	if materia_seleccionada["class_name"] != null:
 		
 		seleccion_alumno_cargar_notas.set_deferred("disabled",true)
 		
-		var alumnos_de_la_materia = obtener_alumnos_de_materia(materia_seleccionada["class_name"] + materia_seleccionada["division"]["division_name"])
+		var alumnos_de_la_materia = obtener_alumnos_de_materia_id(materia_seleccionada["class_name"] + materia_seleccionada["division"]["division_name"])
 		
 		for alumno in alumnos_de_la_materia:
 			seleccion_alumno_cargar_notas.get_popup().add_item(str(alumno.lastname) + " " + str(alumno.firstname))
@@ -305,8 +330,7 @@ func _on_OptionButtonMateriaCN_item_selected(index: int) -> void:
 		seleccion_alumno_cargar_notas.set_deferred("disabled",false)
 
 func _on_OptionButtonAlumnoCN_item_selected(index: int) -> void:
-	
-	var alumnos_de_la_materia = obtener_alumnos_de_materia(materia_seleccionada["class_name"] + materia_seleccionada["division"]["division_name"])
+	var alumnos_de_la_materia = obtener_alumnos_de_materia_id(materia_seleccionada["class_name"] + materia_seleccionada["division"]["division_name"])
 	
 	if alumnos_de_la_materia.empty():
 		#seleccion_materia_alumnos_por_curso.selected = -1
@@ -314,38 +338,48 @@ func _on_OptionButtonAlumnoCN_item_selected(index: int) -> void:
 		#label_mensaje_cursos.visible = true
 		return
 	
-	var alumno = alumnos_de_la_materia[index]
-	
-	$GetNota.request('{URL}{id}'.format({"URL" : endpointNota, "id" : alumno["id"]}))
-	
-	#label_nota_nombre.text = "Notas de " + alumno["lastname"] + ", " + alumno["firstname"]
-	#label_nota_materia.text = str(materia_seleccionada["class_name"] + " ("+ str(materia_seleccionada["division"]["division_name"]) + ")") 
-	
-	activar_panel(panel_carga_notas)
-	
-	seleccion_alumno_cargar_notas.clear()
-	seleccion_alumno_cargar_notas.selected = -1
-	seleccion_materia_cargar_notas.clear()
-	seleccion_materia_cargar_notas.selected = -1
+	alumno = alumnos_de_la_materia[index]
 
 func _on_ButtonCN_pressed() -> void:
+	
+	var nota_1_numero = nota_1.text.to_int()
+	var nota_2_numero = nota_2.text.to_int()
+	var nota_3_numero = nota_3.text.to_int()
+	
+	if nota_1_numero < 0 or nota_2_numero < 0  or nota_3_numero < 0:
+		$CargarNotas/PanelCargaNotas/CargaNotas/AnimationPlayer.play("Error")
+		label_mensaje_estado_cargar_notas.text = "Las notas tiene que ser mayor a 0"
+		label_mensaje_estado_cargar_notas.visible = true
+		return
+	if nota_1_numero > 10 or nota_2_numero > 10 or nota_3_numero > 10:
+		$CargarNotas/PanelCargaNotas/CargaNotas/AnimationPlayer.play("Error")
+		label_mensaje_estado_cargar_notas.text = "Las notas tiene que ser menor a 10"
+		label_mensaje_estado_cargar_notas.visible = true
+		return
+	
 	var json_data = {
 		"id" : nota_Seleccionada["id"],
-		"numeric_note_1" : $PanelNota/Nota_1.text,
-		"numeric_note_2" : $PanelNota/Nota_2.text,
-		"numeric_note_3" : $PanelNota/Nota_3.text
+		"numeric_note_1" : nota_1.text,
+		"numeric_note_2" : nota_2.text,
+		"numeric_note_3" : nota_3.text
 	}
 	$ModificarNota.request(endpointModificarNota, header, true, HTTPClient.METHOD_PUT, JSON.print(json_data))
 
 func _on_ModificarNota_request_completed(_result: int, response_code: int, _headers: PoolStringArray, _body: PoolByteArray) -> void:
 	if response_code == 200:
+		$CargarNotas/PanelCargaNotas/CargaNotas/AnimationPlayer.play("Exito")
 		label_mensaje_estado_cargar_notas.text = "Notas modificadas con exito"
+		label_mensaje_estado_cargar_notas.visible = true
 	else:
+		$CargarNotas/PanelCargaNotas/CargaNotas/AnimationPlayer.play("Error")
 		label_mensaje_estado_cargar_notas.text = "Las notas no han sido modificadas"
+		label_mensaje_estado_cargar_notas.visible = true
+		return
 	
 	label_mensaje_estado_cargar_notas.visible = true
 	yield(get_tree().create_timer(0.6),"timeout")
 	activar_panel(panel_seleccion_alumno)
+	label_mensaje_estado_cargar_notas.visible = false
 
 
 func _on_GetNota_request_completed(_result: int, response_code: int, _headers: PoolStringArray, body: PoolByteArray) -> void:
@@ -357,6 +391,19 @@ func _on_GetNota_request_completed(_result: int, response_code: int, _headers: P
 			
 			if nota["class_name"] == materia_seleccionada["class_name"]:
 				nota_Seleccionada = nota
-				$CargarNotas/PanelCargaNotas/CargaNotas/ParteCentral/Notas/Nota1erTri2.text = str(nota["numeric_note_1"])
-				$CargarNotas/PanelCargaNotas/CargaNotas/ParteCentral/Notas/Nota2doTri2.text = str(nota["numeric_note_2"])
-				$CargarNotas/PanelCargaNotas/CargaNotas/ParteCentral/Notas/Nota3erTri2.text = str(nota["numeric_note_3"])
+				nota_1.text = str(nota["numeric_note_1"])
+				nota_2.text = str(nota["numeric_note_2"])
+				nota_3.text = str(nota["numeric_note_3"])
+
+
+func _on_ButtonBA_pressed():
+	$GetNota.request('{URL}{id}'.format({"URL" : endpointNota, "id" : alumno["id"]}))
+	
+	#label_nota_nombre.text = "Notas de " + alumno["lastname"] + ", " + alumno["firstname"]
+	#label_nota_materia.text = str(materia_seleccionada["class_name"] + " ("+ str(materia_seleccionada["division"]["division_name"]) + ")") 
+	
+	activar_panel(panel_carga_notas)
+	
+	seleccion_alumno_cargar_notas.clear()
+	seleccion_alumno_cargar_notas.selected = -1
+	seleccion_materia_cargar_notas.selected = -1

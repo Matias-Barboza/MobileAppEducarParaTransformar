@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://Recursos/Fuentes/Montserrat-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Recursos/Imagenes/Logo esquina EPT.png" type="Texture" id=2]
@@ -63,6 +63,10 @@ bg_color = Color( 0.184314, 0.823529, 1, 1 )
 
 [sub_resource type="StyleBoxFlat" id=16]
 bg_color = Color( 0.184314, 0.823529, 1, 1 )
+
+[sub_resource type="DynamicFont" id=49]
+size = 34
+font_data = ExtResource( 11 )
 
 [sub_resource type="StyleBoxFlat" id=36]
 bg_color = Color( 0.184314, 0.823529, 1, 1 )
@@ -460,6 +464,12 @@ custom_styles/panel = SubResource( 16 )
 margin_top = 387.0
 margin_bottom = -673.0
 
+[node name="LabelMensaje" parent="CargarNotas/PanelCargaNotas/CargaNotas/ParteCentral" index="0"]
+visible = false
+custom_fonts/font = SubResource( 49 )
+text = "gfsgfsdgfds"
+valign = 1
+
 [node name="Cursos" type="Node" parent="."]
 
 [node name="PanelSeleccionCurso" type="Panel" parent="Cursos"]
@@ -710,6 +720,7 @@ anims/ocultar = SubResource( 44 )
 [connection signal="pressed" from="BarraSuperior/ButtonMenuLateral" to="." method="_on_ButtonMenuLateral_pressed"]
 [connection signal="item_selected" from="CargarNotas/PanelSeleccionAlumno/SeleccionAlumno/ParteCentral/AlumnoSeleccion/OptionButtonMateria" to="." method="_on_OptionButtonMateriaCN_item_selected"]
 [connection signal="item_selected" from="CargarNotas/PanelSeleccionAlumno/SeleccionAlumno/ParteCentral/AlumnoSeleccion/OptionButtonAlumno" to="." method="_on_OptionButtonAlumnoCN_item_selected"]
+[connection signal="pressed" from="CargarNotas/PanelSeleccionAlumno/SeleccionAlumno/ParteCentral/AlumnoSeleccion/ButtonBA" to="." method="_on_ButtonBA_pressed"]
 [connection signal="pressed" from="CargarNotas/PanelCargaNotas/CargaNotas/ParteCentral/Notas/ButtonCN" to="." method="_on_ButtonCN_pressed"]
 [connection signal="item_selected" from="Cursos/PanelSeleccionCurso/SeleccionMateria/ParteCentral/MateriaSeleccion/OptionButton" to="." method="_on_OptionButton_item_selected"]
 [connection signal="pressed" from="Cursos/PanelSeleccionCurso/SeleccionMateria/ParteCentral/MateriaSeleccion/ButtonSM" to="." method="_on_ButtonSM_pressed"]
