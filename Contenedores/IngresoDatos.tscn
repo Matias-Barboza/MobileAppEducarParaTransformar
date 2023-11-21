@@ -87,7 +87,7 @@ tracks/0/keys = {
 "values": [ false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../ParteCentral/Notas:rect_position")
+tracks/1/path = NodePath("../ParteCentral/LabelMensaje:custom_styles/normal:bg_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -96,10 +96,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 150.5, 841 ) ]
+"values": [ Color( 0.866667, 0.258824, 0.258824, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../ParteCentral/LabelMensaje:custom_styles/normal:bg_color")
+tracks/2/path = NodePath("../ParteSuperior/Spinner:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -107,11 +107,11 @@ tracks/2/enabled = true
 tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 0.866667, 0.258824, 0.258824, 1 ) ]
+"update": 1,
+"values": [ false ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("../ParteSuperior/Spinner:visible")
+tracks/3/path = NodePath("../ParteCentral/Datos:rect_position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -119,15 +119,15 @@ tracks/3/enabled = true
 tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
+"update": 0,
+"values": [ Vector2( 150.5, 841 ) ]
 }
 
 [sub_resource type="Animation" id=60]
 resource_name = "desplazamiento_error"
 length = 0.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("../ParteCentral/Notas:rect_position")
+tracks/0/path = NodePath("../ParteCentral/LabelMensaje:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -135,11 +135,11 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 150.5, 841 ), Vector2( 150.5, 885 ) ]
+"update": 1,
+"values": [ false, true ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../ParteCentral/LabelMensaje:visible")
+tracks/1/path = NodePath("../ParteCentral/Datos:rect_position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -147,8 +147,8 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
+"update": 0,
+"values": [ Vector2( 150.5, 841 ), Vector2( 150.5, 885 ) ]
 }
 
 [sub_resource type="Animation" id=64]
@@ -228,28 +228,28 @@ tracks/0/keys = {
 resource_name = "repliegue_desplazamiento_error"
 length = 0.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("../ParteCentral/Notas:rect_position")
+tracks/0/path = NodePath("../ParteCentral/LabelMensaje:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 150.5, 885 ), Vector2( 150.5, 841 ) ]
+"update": 1,
+"values": [ true, false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../ParteCentral/LabelMensaje:visible")
+tracks/1/path = NodePath("../ParteCentral/Datos:rect_position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1 ),
+"times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
+"update": 0,
+"values": [ Vector2( 150.5, 885 ), Vector2( 150.5, 841 ) ]
 }
 
 [sub_resource type="Animation" id=63]
@@ -312,6 +312,7 @@ custom_styles/separator = SubResource( 54 )
 [node name="Spinner" type="Sprite" parent="ParteSuperior"]
 visible = false
 position = Vector2( 870, 707 )
+rotation = 4.85301
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 3 )
 

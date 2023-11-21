@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://Recursos/Fuentes/Montserrat-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Recursos/Imagenes/Logo esquina EPT.png" type="Texture" id=2]
@@ -17,6 +17,8 @@
 [ext_resource path="res://Recursos/Iconos/argentina.png" type="Texture" id=15]
 [ext_resource path="res://Recursos/Iconos/circle.png" type="Texture" id=16]
 [ext_resource path="res://Recursos/Iconos/united-states.png" type="Texture" id=17]
+[ext_resource path="res://Contenedores/SeleccionAlumno.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Contenedores/SeleccionMateria.tscn" type="PackedScene" id=19]
 
 [sub_resource type="StyleBoxLine" id=1]
 thickness = 4
@@ -38,10 +40,19 @@ bg_color = Color( 0.184314, 0.823529, 1, 1 )
 size = 100
 font_data = ExtResource( 11 )
 
+[sub_resource type="StyleBoxFlat" id=37]
+bg_color = Color( 0.184314, 0.823529, 1, 1 )
+
 [sub_resource type="StyleBoxFlat" id=19]
 bg_color = Color( 0.184314, 0.823529, 1, 1 )
 
+[sub_resource type="StyleBoxFlat" id=38]
+bg_color = Color( 0.184314, 0.823529, 1, 1 )
+
 [sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0.184314, 0.823529, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=36]
 bg_color = Color( 0.184314, 0.823529, 1, 1 )
 
 [sub_resource type="StyleBoxFlat" id=20]
@@ -169,7 +180,7 @@ tracks/1/keys = {
 "values": [ true ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("TablaHorarios/PanelHorarios:visible")
+tracks/2/path = NodePath("Horarios/PanelHorarios:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -193,7 +204,7 @@ tracks/3/keys = {
 "values": [ false ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("TablaCursos/PanelCursos:visible")
+tracks/4/path = NodePath("Cursos/PanelCursos:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -313,20 +324,42 @@ margin_bottom = 439.0
 custom_fonts/font = SubResource( 18 )
 text = "KEY_BIENVENIDO"
 
-[node name="TablaHorarios" type="Node" parent="."]
+[node name="Horarios" type="Node" parent="."]
 
-[node name="PanelHorarios" type="Panel" parent="TablaHorarios"]
+[node name="PanelSeleccionMateria" type="Panel" parent="Horarios"]
+visible = false
+margin_top = 150.0
+margin_right = 1080.0
+margin_bottom = 1920.0
+custom_styles/panel = SubResource( 37 )
+
+[node name="SeleccionMateria" parent="Horarios/PanelSeleccionMateria" instance=ExtResource( 19 )]
+margin_top = 358.0
+margin_bottom = -934.0
+
+[node name="PanelHorarios" type="Panel" parent="Horarios"]
 visible = false
 margin_top = 150.0
 margin_right = 1080.0
 margin_bottom = 1920.0
 custom_styles/panel = SubResource( 19 )
 
-[node name="ScrollContainer" parent="TablaHorarios/PanelHorarios" instance=ExtResource( 12 )]
+[node name="ScrollContainer" parent="Horarios/PanelHorarios" instance=ExtResource( 12 )]
 margin_top = 0.0
 margin_bottom = 1770.0
 
 [node name="CargarNotas" type="Node" parent="."]
+
+[node name="PanelSeleccionAlumno" type="Panel" parent="CargarNotas"]
+visible = false
+margin_top = 150.0
+margin_right = 1080.0
+margin_bottom = 1920.0
+custom_styles/panel = SubResource( 38 )
+
+[node name="SeleccionAlumno" parent="CargarNotas/PanelSeleccionAlumno" instance=ExtResource( 18 )]
+margin_top = 358.0
+margin_bottom = -702.0
 
 [node name="PanelCargaNotas" type="Panel" parent="CargarNotas"]
 visible = false
@@ -336,25 +369,30 @@ margin_bottom = 1920.0
 custom_styles/panel = SubResource( 16 )
 
 [node name="CargaNotas" parent="CargarNotas/PanelCargaNotas" instance=ExtResource( 10 )]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -421.5
-margin_top = -355.0
-margin_right = 421.5
-margin_bottom = 355.0
+margin_top = 387.0
+margin_bottom = -673.0
 
-[node name="TablaCursos" type="Node" parent="."]
+[node name="Cursos" type="Node" parent="."]
 
-[node name="PanelCursos" type="Panel" parent="TablaCursos"]
+[node name="PanelSeleccionCurso" type="Panel" parent="Cursos"]
+visible = false
+margin_top = 150.0
+margin_right = 1080.0
+margin_bottom = 1920.0
+custom_styles/panel = SubResource( 36 )
+
+[node name="SeleccionMateria" parent="Cursos/PanelSeleccionCurso" instance=ExtResource( 19 )]
+margin_top = 358.0
+margin_bottom = -934.0
+
+[node name="PanelCursos" type="Panel" parent="Cursos"]
 visible = false
 margin_top = 150.0
 margin_right = 1080.0
 margin_bottom = 1920.0
 custom_styles/panel = SubResource( 20 )
 
-[node name="ScrollContainer" parent="TablaCursos/PanelCursos" instance=ExtResource( 13 )]
+[node name="ScrollContainer" parent="Cursos/PanelCursos" instance=ExtResource( 13 )]
 margin_top = 0.0
 margin_bottom = 1770.0
 
@@ -517,13 +555,25 @@ anims/default = SubResource( 21 )
 anims/desplegar = SubResource( 30 )
 anims/replegar = SubResource( 13 )
 
+[node name="GetMaterias" type="HTTPRequest" parent="."]
+
+[node name="GetAlumnos" type="HTTPRequest" parent="."]
+
+[node name="GetAlumnosNota" type="HTTPRequest" parent="."]
+
+[node name="GetNota" type="HTTPRequest" parent="."]
+
+[node name="ModificarNota" type="HTTPRequest" parent="."]
+
 [connection signal="pressed" from="BarraSuperior/ButtonMenuLateral" to="." method="_on_ButtonMenuLateral_pressed"]
-[connection signal="pressed" from="CargarNotas/PanelCargaNotas/CargaNotas/ParteCentral/Notas/ButtonCN" to="." method="_on_ButtonCN_pressed"]
 [connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonHorarios" to="." method="_on_ButtonHorarios_pressed"]
 [connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonCargarNotas" to="." method="_on_ButtonCargarNotas_pressed"]
 [connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonCursos" to="." method="_on_ButtonCursos_pressed"]
 [connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonCombinado" to="." method="_on_ButtonCombinado_pressed"]
 [connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonSalir" to="." method="_on_ButtonSalir_pressed"]
 [connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/Control/ButtonTraduccion" to="." method="_on_ButtonTraduccion_pressed"]
-
-[editable path="CargarNotas/PanelCargaNotas/CargaNotas"]
+[connection signal="request_completed" from="GetMaterias" to="." method="_on_GetMaterias_request_completed"]
+[connection signal="request_completed" from="GetAlumnos" to="." method="_on_GetAlumnos_request_completed"]
+[connection signal="request_completed" from="GetAlumnosNota" to="." method="_on_GetAlumnosNota_request_completed"]
+[connection signal="request_completed" from="GetNota" to="." method="_on_GetNota_request_completed"]
+[connection signal="request_completed" from="ModificarNota" to="." method="_on_ModificarNota_request_completed"]
