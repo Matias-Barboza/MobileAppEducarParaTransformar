@@ -451,7 +451,6 @@ margin_top = 358.0
 margin_bottom = -702.0
 
 [node name="PanelCargaNotas" type="Panel" parent="CargarNotas"]
-visible = false
 margin_top = 150.0
 margin_right = 1080.0
 margin_bottom = 1920.0
@@ -711,6 +710,7 @@ anims/ocultar = SubResource( 44 )
 [connection signal="pressed" from="BarraSuperior/ButtonMenuLateral" to="." method="_on_ButtonMenuLateral_pressed"]
 [connection signal="item_selected" from="CargarNotas/PanelSeleccionAlumno/SeleccionAlumno/ParteCentral/AlumnoSeleccion/OptionButtonMateria" to="." method="_on_OptionButtonMateriaCN_item_selected"]
 [connection signal="item_selected" from="CargarNotas/PanelSeleccionAlumno/SeleccionAlumno/ParteCentral/AlumnoSeleccion/OptionButtonAlumno" to="." method="_on_OptionButtonAlumnoCN_item_selected"]
+[connection signal="pressed" from="CargarNotas/PanelCargaNotas/CargaNotas/ParteCentral/Notas/ButtonCN" to="." method="_on_ButtonCN_pressed"]
 [connection signal="item_selected" from="Cursos/PanelSeleccionCurso/SeleccionMateria/ParteCentral/MateriaSeleccion/OptionButton" to="." method="_on_OptionButton_item_selected"]
 [connection signal="pressed" from="Cursos/PanelSeleccionCurso/SeleccionMateria/ParteCentral/MateriaSeleccion/ButtonSM" to="." method="_on_ButtonSM_pressed"]
 [connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonHorarios" to="." method="_on_ButtonHorarios_pressed"]

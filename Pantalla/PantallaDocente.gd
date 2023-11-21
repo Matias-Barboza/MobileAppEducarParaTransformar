@@ -20,7 +20,6 @@ var datos_alumno : = []
 var arreglo_materias : = []
 var datos_materia : = []
 var alumnos_por_materia : = []
-var alumnos
 var materia_seleccionada 
 var nota_Seleccionada
 
@@ -172,11 +171,6 @@ func _on_ButtonCombinado_pressed() -> void:
 	activar_panel(panel_cursos_horarios)
 
 
-func _on_ButtonCN_pressed() -> void:
-	pass # Replace with function body.
-
-
-
 func _on_ButtonSalir_pressed():
 	get_tree().change_scene_to(escena_login)
 
@@ -236,31 +230,6 @@ func _on_GetMaterias_request_completed(_result: int, response_code: int, _header
 	else:
 		print("Error al obtener los horarios")
 
-
-func _on_GetNota_request_completed(_result: int, response_code: int, _headers: PoolStringArray, body: PoolByteArray) -> void:
-	
-	if response_code == 200:
-		var json = JSON.parse(body.get_string_from_utf8())
-		
-		for nota in json.result:
-			
-			if nota["class_name"] == materia_seleccionada["class_name"]:
-				nota_Seleccionada = nota
-				$PanelNota/Nota_1.text = str(nota["numeric_note_1"])
-				$PanelNota/Nota_2.text = str(nota["numeric_note_2"])
-				$PanelNota/Nota_3.text = str(nota["numeric_note_3"])
-
-
-func _on_ModificarNota_request_completed(_result: int, response_code: int, _headers: PoolStringArray, _body: PoolByteArray) -> void:
-
-	if response_code == 200:
-		label_mensaje_estado_cargar_notas.text = "Notas modificadas con exito"
-	else:
-		label_mensaje_estado_cargar_notas.text = "Las notas no han sido modificadas"
-	
-	label_mensaje_estado_cargar_notas.visible = true
-
-
 func _on_request_alumnos_completed(_result, response_code, _headers, body, params):
 	
 	var materia = params["class_name"] + params["division"]["division_name"]
@@ -300,7 +269,6 @@ func _on_ButtonSM_pressed() -> void:
 			label_mensaje_cursos.visible = true
 			return
 		
-		alumnos = alumnos_de_la_materia
 		tabla_alumnos_por_curso.reiniciar_tabla()
 		arreglo_alumnos = []
 		
@@ -338,4 +306,57 @@ func _on_OptionButtonMateriaCN_item_selected(index: int) -> void:
 
 func _on_OptionButtonAlumnoCN_item_selected(index: int) -> void:
 	
-	pass
+	var alumnos_de_la_materia = obtener_alumnos_de_materia(materia_seleccionada["class_name"] + materia_seleccionada["division"]["division_name"])
+	
+	if alumnos_de_la_materia.empty():
+		#seleccion_materia_alumnos_por_curso.selected = -1
+		#label_mensaje_cursos.text = "La lista está vacía. Intente nuevamente."
+		#label_mensaje_cursos.visible = true
+		return
+	
+	var alumno = alumnos_de_la_materia[index]
+	
+	$GetNota.request('{URL}{id}'.format({"URL" : endpointNota, "id" : alumno["id"]}))
+	
+	#label_nota_nombre.text = "Notas de " + alumno["lastname"] + ", " + alumno["firstname"]
+	#label_nota_materia.text = str(materia_seleccionada["class_name"] + " ("+ str(materia_seleccionada["division"]["division_name"]) + ")") 
+	
+	activar_panel(panel_carga_notas)
+	
+	seleccion_alumno_cargar_notas.clear()
+	seleccion_alumno_cargar_notas.selected = -1
+	seleccion_materia_cargar_notas.clear()
+	seleccion_materia_cargar_notas.selected = -1
+
+func _on_ButtonCN_pressed() -> void:
+	var json_data = {
+		"id" : nota_Seleccionada["id"],
+		"numeric_note_1" : $PanelNota/Nota_1.text,
+		"numeric_note_2" : $PanelNota/Nota_2.text,
+		"numeric_note_3" : $PanelNota/Nota_3.text
+	}
+	$ModificarNota.request(endpointModificarNota, header, true, HTTPClient.METHOD_PUT, JSON.print(json_data))
+
+func _on_ModificarNota_request_completed(_result: int, response_code: int, _headers: PoolStringArray, _body: PoolByteArray) -> void:
+	if response_code == 200:
+		label_mensaje_estado_cargar_notas.text = "Notas modificadas con exito"
+	else:
+		label_mensaje_estado_cargar_notas.text = "Las notas no han sido modificadas"
+	
+	label_mensaje_estado_cargar_notas.visible = true
+	yield(get_tree().create_timer(0.6),"timeout")
+	activar_panel(panel_seleccion_alumno)
+
+
+func _on_GetNota_request_completed(_result: int, response_code: int, _headers: PoolStringArray, body: PoolByteArray) -> void:
+	
+	if response_code == 200:
+		var json = JSON.parse(body.get_string_from_utf8())
+		
+		for nota in json.result:
+			
+			if nota["class_name"] == materia_seleccionada["class_name"]:
+				nota_Seleccionada = nota
+				$CargarNotas/PanelCargaNotas/CargaNotas/ParteCentral/Notas/Nota1erTri2.text = str(nota["numeric_note_1"])
+				$CargarNotas/PanelCargaNotas/CargaNotas/ParteCentral/Notas/Nota2doTri2.text = str(nota["numeric_note_2"])
+				$CargarNotas/PanelCargaNotas/CargaNotas/ParteCentral/Notas/Nota3erTri2.text = str(nota["numeric_note_3"])
