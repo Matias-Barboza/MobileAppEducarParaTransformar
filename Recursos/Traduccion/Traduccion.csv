@@ -23,10 +23,14 @@ KEY_MATERIA,Materia,Subject
 KEY_COMISION,Comisión,Division
 KEY_AULA,Aula,Classroom
 KEY_DIA,Día,Day
-KEY_SELECCIONAR_MATERIA,Seleccione una materia,Select a subject
+KEY_SELECCIONAR_MATERIA,Seleccionar materia,Select a subject
+KEY_SELECCION_MATERIA,Selección materia,Subject selection
+KEY_BUSCAR_MATERIA,Buscar materia,Search subject
 KEY_APELLIDO,Apellido,Last name
 KEY_NOMBRE,Nombre,Name
-KEY_SELECCIONAR_ALUMNO,Seleccione un alumno,Select a student
+KEY_SELECCIONAR_ALUMNO,Seleccionar alumno,Select a student
+KEY_SELECCION_ALUMNO,Selección alumno,Student selection
+KEY_BUSCAR_ALUMNO,Buscar alumno,Search student
 KEY_IDIOMA,Cambiar idioma,Change language
 KEY_EMAIL_INVALIDO,Correo electrónico o contraseña inválido,Email or password are incorrect
 KEY_DATOS_FALTANTES,Datos faltantes o correo electrónico inválido,Missing data or invalid email
@@ -34,3 +38,5 @@ KEY_SESION_INICIADA,Sesión iniciada,Log in succesfully
 KEY_ROL_INVALIDO,Rol inválido,Invalid role
 KEY_CURSOS,Cursos,Course
 KEY_CURSOS_Y_HORARIOS,Cursos y horarios,Courses and schedules
+KEY_LISTADO_HORARIO,Listado de horarios, Schedules list
+KEY_LISTADO_ALUMNOS,Listado de alumnos,Students list
