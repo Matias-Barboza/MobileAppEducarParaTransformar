@@ -87,7 +87,6 @@ func getRole() -> void:
 	
 	var endpointrole = endpointrole_original
 	endpointrole += "%s" % Globals.userId
-	print(endpointrole)
 	$GetRoleRequest.request(endpointrole)
 	endpointFullname += str(Globals.userId)
 	$GetFullNameRequest.request(endpointFullname)

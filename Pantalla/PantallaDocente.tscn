@@ -216,12 +216,24 @@ tracks/4/keys = {
 "values": [ false ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("TablaCursosHorarios/PanelCursosHorarios:visible")
+tracks/5/path = NodePath("CursosHorarios/PanelCursosHorarios:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Horarios/PanelSeleccionMateria:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -396,9 +408,9 @@ custom_styles/panel = SubResource( 20 )
 margin_top = 0.0
 margin_bottom = 1770.0
 
-[node name="TablaCursosHorarios" type="Node" parent="."]
+[node name="CursosHorarios" type="Node" parent="."]
 
-[node name="PanelCursosHorarios" type="Panel" parent="TablaCursosHorarios"]
+[node name="PanelCursosHorarios" type="Panel" parent="CursosHorarios"]
 visible = false
 margin_top = 150.0
 margin_right = 1080.0
@@ -566,6 +578,8 @@ anims/replegar = SubResource( 13 )
 [node name="ModificarNota" type="HTTPRequest" parent="."]
 
 [connection signal="pressed" from="BarraSuperior/ButtonMenuLateral" to="." method="_on_ButtonMenuLateral_pressed"]
+[connection signal="item_selected" from="Cursos/PanelSeleccionCurso/SeleccionMateria/ParteCentral/MateriaSeleccion/OptionButton" to="." method="_on_OptionButton_item_selected"]
+[connection signal="pressed" from="Cursos/PanelSeleccionCurso/SeleccionMateria/ParteCentral/MateriaSeleccion/ButtonSM" to="." method="_on_ButtonSM_pressed"]
 [connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonHorarios" to="." method="_on_ButtonHorarios_pressed"]
 [connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonCargarNotas" to="." method="_on_ButtonCargarNotas_pressed"]
 [connection signal="pressed" from="MenuLateral/PanelLateral/VBoxContainer/ButtonCursos" to="." method="_on_ButtonCursos_pressed"]
@@ -577,3 +591,8 @@ anims/replegar = SubResource( 13 )
 [connection signal="request_completed" from="GetAlumnosNota" to="." method="_on_GetAlumnosNota_request_completed"]
 [connection signal="request_completed" from="GetNota" to="." method="_on_GetNota_request_completed"]
 [connection signal="request_completed" from="ModificarNota" to="." method="_on_ModificarNota_request_completed"]
+
+[editable path="Horarios/PanelSeleccionMateria/SeleccionMateria"]
+[editable path="CargarNotas/PanelSeleccionAlumno/SeleccionAlumno"]
+[editable path="CargarNotas/PanelCargaNotas/CargaNotas"]
+[editable path="Cursos/PanelSeleccionCurso/SeleccionMateria"]

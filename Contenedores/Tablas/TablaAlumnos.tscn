@@ -1,17 +1,18 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Recursos/Fuentes/Montserrat-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Contenedores/Tablas/Tabla.gd" type="Script" id=2]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 1, 1, 1, 1 )
-
 [sub_resource type="DynamicFont" id=2]
-size = 40
+size = 60
 font_data = ExtResource( 1 )
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 
 [node name="ScrollContainer" type="ScrollContainer"]
 margin_top = 150.0
@@ -34,58 +35,57 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="TablaAlumnos/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TablaAlumnos/VBoxContainer"]
 margin_right = 2146.0
-margin_bottom = 50.0
-custom_styles/panel = SubResource( 1 )
+margin_bottom = 79.0
+custom_constants/separation = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TablaAlumnos/VBoxContainer/PanelContainer"]
-margin_right = 2146.0
-margin_bottom = 50.0
-
-[node name="1" type="Label" parent="TablaAlumnos/VBoxContainer/PanelContainer/HBoxContainer"]
-margin_right = 712.0
-margin_bottom = 50.0
+[node name="1" type="Label" parent="TablaAlumnos/VBoxContainer/HBoxContainer"]
+margin_right = 536.0
+margin_bottom = 79.0
 size_flags_horizontal = 3
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
 text = "DNI"
 valign = 1
 
-[node name="2" type="Label" parent="TablaAlumnos/VBoxContainer/PanelContainer/HBoxContainer"]
-margin_left = 716.0
-margin_right = 1429.0
-margin_bottom = 50.0
+[node name="2" type="Label" parent="TablaAlumnos/VBoxContainer/HBoxContainer"]
+margin_left = 536.0
+margin_right = 1073.0
+margin_bottom = 79.0
 size_flags_horizontal = 3
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
 text = "KEY_APELLIDO"
 valign = 1
 
-[node name="3" type="Label" parent="TablaAlumnos/VBoxContainer/PanelContainer/HBoxContainer"]
-margin_left = 1433.0
-margin_right = 2146.0
-margin_bottom = 50.0
+[node name="3" type="Label" parent="TablaAlumnos/VBoxContainer/HBoxContainer"]
+margin_left = 1073.0
+margin_right = 1609.0
+margin_bottom = 79.0
 size_flags_horizontal = 3
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
 text = "KEY_NOMBRE"
 valign = 1
 
-[node name="PanelContainer2" type="PanelContainer" parent="TablaAlumnos/VBoxContainer"]
-margin_top = 50.0
+[node name="4" type="Label" parent="TablaAlumnos/VBoxContainer/HBoxContainer"]
+margin_left = 1609.0
+margin_right = 2146.0
+margin_bottom = 79.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "Email"
+valign = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TablaAlumnos/VBoxContainer"]
+margin_top = 79.0
 margin_right = 2146.0
 margin_bottom = 1758.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/panel = SubResource( 3 )
-
-[node name="ScrollContainer" type="ScrollContainer" parent="TablaAlumnos/VBoxContainer/PanelContainer2"]
-margin_right = 2146.0
-margin_bottom = 1708.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TablaAlumnos/VBoxContainer/PanelContainer2/ScrollContainer"]
-margin_right = 2146.0
-margin_bottom = 1708.0
 size_flags_horizontal = 3
 size_flags_vertical = 3

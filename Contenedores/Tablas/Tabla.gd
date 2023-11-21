@@ -7,7 +7,7 @@ signal data_recibida
 export var ruta_fila = ""
 
 
-onready var hijos_tabla = $VBoxContainer/PanelContainer2/ScrollContainer/VBoxContainer
+onready var hijos_tabla = $VBoxContainer/VBoxContainer
 
 
 var data = []
@@ -15,7 +15,7 @@ var numero_columnas = 0
 var fila
 
 
-onready var tabla = get_node("VBoxContainer/PanelContainer2/ScrollContainer/VBoxContainer")
+onready var tabla = get_node("VBoxContainer/VBoxContainer")
 
 
 func _ready():
@@ -56,7 +56,7 @@ func reiniciar_tabla():
 
 func obtener_numero_columnas():
 	
-	return get_node("VBoxContainer/PanelContainer/HBoxContainer").get_child_count()
+	return get_node("VBoxContainer/HBoxContainer").get_child_count()
 
 
 func set_data(data_externa:Array):
