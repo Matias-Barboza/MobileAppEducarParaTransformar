@@ -62,6 +62,7 @@ onready var boton_buscar_cursoML : Button = $MenuLateral/PanelLateral/VBoxContai
 onready var panel_seleccion_curso = $Cursos/PanelSeleccionCurso
 onready var panel_cursos : Panel = $Cursos/PanelCursos
 
+onready var label_nombre_materia : Label = $Cursos/PanelCursos/LabelNombre
 onready var label_mensaje_cursos : Label = $Cursos/PanelSeleccionCurso/SeleccionMateria/ParteCentral/LabelMensaje
 onready var seleccion_materia_alumnos_por_curso : OptionButton = $Cursos/PanelSeleccionCurso/SeleccionMateria/ParteCentral/MateriaSeleccion/OptionButton
 onready var boton_buscar_materia : Button = $Cursos/PanelSeleccionCurso/SeleccionMateria/ParteCentral/MateriaSeleccion/ButtonSM
@@ -313,6 +314,8 @@ func _on_ButtonSM_pressed() -> void:
 			datos_alumno = []
 		tabla_alumnos_por_curso.set_data(arreglo_alumnos)
 		
+		label_nombre_materia.text = materia_seleccionada["class_name"] + " " + materia_seleccionada["division"]["division_name"]
+		
 		activar_panel(panel_cursos)
 		
 		seleccion_materia_alumnos_por_curso.selected = -1
@@ -335,5 +338,4 @@ func _on_OptionButtonMateriaCN_item_selected(index: int) -> void:
 
 func _on_OptionButtonAlumnoCN_item_selected(index: int) -> void:
 	
-	#alumno_seleccionado
 	pass
