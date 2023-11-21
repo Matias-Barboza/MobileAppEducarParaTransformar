@@ -33,9 +33,10 @@ onready var panel_bienvenida : Panel = $Bienvenida/PanelBienvenida
 
 
 # Onready relacionados a la traduccion
-onready var animation_player_toggle : AnimationPlayer = $MenuLateral/PanelLateral/VBoxContainer/Control/AnimationPlayer
-onready var sprite_arg : Sprite = $MenuLateral/PanelLateral/VBoxContainer/Control/SpriteARG
-onready var sprite_usa : Sprite = $MenuLateral/PanelLateral/VBoxContainer/Control/SpriteUSA
+onready var panel_idioma : Panel = $PanelIdioma/PanelIdioma
+onready var animation_player_toggle : AnimationPlayer = $PanelIdioma/PanelIdioma/Control/AnimationPlayer
+onready var sprite_arg : Sprite = $PanelIdioma/PanelIdioma/Control/SpriteARG
+onready var sprite_usa : Sprite = $PanelIdioma/PanelIdioma/Control/SpriteUSA
 
 
 # Onready relacionado a las request
@@ -100,7 +101,7 @@ func _ready() -> void:
 	paneles = [panel_bienvenida, panel_horarios,
 	panel_seleccion_alumno, panel_carga_notas, 
 	panel_seleccion_curso, panel_cursos,
-	panel_cursos_horarios]
+	panel_cursos_horarios, panel_idioma]
 	escena_login = load("res://Pantalla/PantallaInicioSesion.tscn")
 	if TranslationServer.get_locale() == "es":
 		animation_player_toggle.play("on")
@@ -339,6 +340,7 @@ func _on_OptionButtonAlumnoCN_item_selected(index: int) -> void:
 		return
 	
 	alumno = alumnos_de_la_materia[index]
+	boton_buscar_alumno.set_deferred("disabled",false)
 
 func _on_ButtonCN_pressed() -> void:
 	
@@ -407,3 +409,7 @@ func _on_ButtonBA_pressed():
 	seleccion_alumno_cargar_notas.clear()
 	seleccion_alumno_cargar_notas.selected = -1
 	seleccion_materia_cargar_notas.selected = -1
+
+
+func _on_ButtonIdioma_pressed():
+	activar_panel(panel_idioma)

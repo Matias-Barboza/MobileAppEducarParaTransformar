@@ -45,7 +45,7 @@ func _ready() -> void:
 		estado_traducir = false
 		sprite_arg.visible = true
 		sprite_usa.visible = false
-	else: 
+	elif TranslationServer.get_locale() == "en": 
 		animation_player_toggle.play("off")
 		estado_traducir = true
 		sprite_arg.visible = false

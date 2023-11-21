@@ -23,12 +23,12 @@ KEY_MATERIA,Materia,Subject
 KEY_COMISION,Comisión,Division
 KEY_AULA,Aula,Classroom
 KEY_DIA,Día,Day
-KEY_SELECCIONAR_MATERIA,Seleccionar materia,Select a subject
+KEY_SELECCIONAR_MATERIA,Seleccionar materia:,Select a subject:
 KEY_SELECCION_MATERIA,Selección materia,Subject selection
 KEY_BUSCAR_MATERIA,Buscar materia,Search subject
 KEY_APELLIDO,Apellido,Last name
 KEY_NOMBRE,Nombre,Name
-KEY_SELECCIONAR_ALUMNO,Seleccionar alumno,Select a student
+KEY_SELECCIONAR_ALUMNO,Seleccionar alumno:,Select a student:
 KEY_SELECCION_ALUMNO,Selección alumno,Student selection
 KEY_BUSCAR_ALUMNO,Buscar alumno,Search student
 KEY_IDIOMA,Cambiar idioma,Change language
